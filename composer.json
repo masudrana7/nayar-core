@@ -1,0 +1,33 @@
+{
+	"name": "radiustheme/nayar-core",
+	"description": "RadiusTheme WordPress core plugin",
+	"keywords": [
+		"WordPress",
+		"Plugin",
+		"Starter"
+	],
+	"homepage": "https://github.com/RadiusTheme",
+	"license": "GPL-3.0",
+	"version": "4.0.0",
+	"authors": [
+		{
+			"name": "RadiusTheme",
+			"email": "support@radiustheme.com",
+			"homepage": "https://radiustheme.com",
+			"role": "Developer"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"RT\\NayarCore\\": "./app"
+		},
+		"files": [
+			"./app\/Helpers.php"
+		]
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": false
+		}
+	}
+}

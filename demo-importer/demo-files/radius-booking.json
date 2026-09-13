@@ -1,0 +1,1149 @@
+{
+  "metadata": {
+    "plugin": "radius-booking",
+    "version": "1.0.7",
+    "exported_at": "2026-04-12T09:31:21+00:00",
+    "site_url": "https://www.radiustheme.com/demo/wordpress/themes/nayar",
+    "modules": [
+      "settings",
+      "category",
+      "location",
+      "service",
+      "staff",
+      "customer",
+      "appointment"
+    ],
+    "counts": {
+      "settings": 34,
+      "category": 1,
+      "location": 0,
+      "service": 6,
+      "staff": 2,
+      "customer": 2,
+      "appointment": 3
+    }
+  },
+  "data": {
+    "settings": {
+      "exported_at": "2026-04-12 09:31:22",
+      "plugin_version": "1.0.7",
+      "settings": {
+        "auth": {
+          "useWordPressUsers": true,
+          "allowCustomerRegistration": true,
+          "requirePasswordOnRegister": true,
+          "removeLoginRegisterTabs": false,
+          "hideCreateAccountPrompt": false,
+          "mandatoryEmail": true
+        },
+        "bookingBuffer": {
+          "useServiceDuration": true,
+          "includeBufferTime": true
+        },
+        "business": {
+          "logoUrl": "",
+          "companyName": "Nayar",
+          "phone": "",
+          "address": "1487 Rocky Horse Carrefour 1487 Rocky Horse Arlington, TX 16819 United"
+        },
+        "chatbot": {
+          "enabled": false,
+          "showFormToggle": false,
+          "provider": "openai",
+          "apiKey": "",
+          "geminiApiKey": "",
+          "model": "gpt-4o-mini",
+          "geminiModel": "gemini-3-flash-preview",
+          "maxTokens": 1024,
+          "temperature": 0.7,
+          "displayMode": "all_pages",
+          "specificPages": [],
+          "welcomeMessage": "Hi! I'm your booking assistant. How can I help you today?",
+          "botName": "Booking Assistant",
+          "primaryColor": "#0040ff",
+          "position": "bottom-right",
+          "responseStyle": "text",
+          "bubbleIcon": "chat",
+          "bubbleImage": ""
+        },
+        "currency": {
+          "symbol": "USD",
+          "symbolPosition": "before",
+          "thousand": ",",
+          "decimal": ".",
+          "decimals": 2,
+          "hideBreakdownIfZero": true
+        },
+        "customSchedules": [],
+        "dateTime": {
+          "timeSystem": "12h",
+          "dateFormat": "m/d/Y",
+          "selectableInterval": 30,
+          "showAppointmentEndTime": true,
+          "verboseDates": false,
+          "numericMonth": true
+        },
+        "display": {
+          "frontendItemsPerPage": 10,
+          "backendItemsPerPage": 20,
+          "defaultBackendPage": "appointments",
+          "showClientTimezone": true,
+          "showAddToCalendar": true
+        },
+        "email_admin_new_appointment": [],
+        "email_customer_appointment_cancelled": [],
+        "email_customer_appointment_completed": [],
+        "email_customer_appointment_confirmed": [],
+        "email_customer_appointment_pending": [],
+        "email_customer_appointment_reminder": [],
+        "email_employee_appointment_cancelled": [],
+        "email_employee_appointment_confirmed": [],
+        "email_employee_appointment_pending": [],
+        "email_employee_appointment_reminder": [],
+        "email": {
+          "senderName": "Nayar",
+          "senderEmail": "dev-email@wpengine.local",
+          "replyToEmail": ""
+        },
+        "formCustomization": {
+          "design": {
+            "primaryColor": "#00278d",
+            "secondaryColor": "#E2E8F0",
+            "backgroundColor": "#FFFFFF",
+            "textColor": "#323E5B",
+            "sidebarColor": "",
+            "stepButtonColor": "#00154C",
+            "stepButtonHoverColor": "#062576",
+            "borderColor": "#DAE0E5",
+            "fontFamily": "Inter, ui-sans-serif, system-ui",
+            "borderRadius": "0.75rem",
+            "sidebarImageUrl": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/08/logo_light.svg"
+          },
+          "labels": {
+            "services": {
+              "heading": "Easily book your appointments & Get the Service you deserve.",
+              "serviceLabel": "Which Service you want to take",
+              "locationLabel": "Location",
+              "staffLabel": "Choose a Doctor",
+              "servicePlaceholder": "Select service",
+              "locationPlaceholder": "Select location",
+              "staffPlaceholder": "Select staff"
+            },
+            "datetime": {
+              "heading": "Date & Time Selection",
+              "subheading": "Select your appointment date and time",
+              "loadingText": "Loading available dates...",
+              "noAvailableText": "No available dates found"
+            },
+            "timeslot": {
+              "heading": "Available Time Slots",
+              "subheading": "Select your appointment date and time",
+              "loadingText": "Loading time slots...",
+              "noSlotsText": "No available time slots for the selected date.",
+              "bringingAnyoneLabel": "Bringing Anyone?",
+              "bringingAnyoneSubLabel": "Add extra people to your booking"
+            },
+            "details": {
+              "heading": "Customer Details",
+              "subheading": "Customer Information",
+              "fullNameLabel": "Full Name",
+              "fullNamePlaceholder": "Enter name here ...",
+              "phoneLabel": "Phone number",
+              "emailLabel": "E-mail",
+              "emailPlaceholder": "Enter e-mail...",
+              "noteLabel": "Note",
+              "notePlaceholder": "Add any additional notes..."
+            },
+            "payment": {
+              "heading": "Payment",
+              "subheading": "Payment Summary",
+              "summaryTitle": "Appointment summary"
+            },
+            "checkout": {
+              "heading": "Checkout",
+              "subheading": "Make your payment",
+              "paymentMethodTitle": "Payment method"
+            },
+            "confirmation": {
+              "heading": "Appointment Confirmed",
+              "subheading": "We Look Forward To Seeing You.",
+              "detailsTitle": "Appointment Details"
+            },
+            "sidebar": {
+              "summaryTitle": "Summary:",
+              "customerTitle": "Customer:",
+              "helpTitle": "Questions?",
+              "helpText": "Call %s for help"
+            }
+          },
+          "buttons": {
+            "nextText": "Next",
+            "backText": "Back",
+            "confirmText": "Continue",
+            "processingText": "Processing…"
+          },
+          "toggles": {
+            "showNoteField": true,
+            "showSidebar": true,
+            "showSidebarImage": true,
+            "showCalendarExport": true,
+            "allowBackNavigation": true
+          }
+        },
+        "holidays": [],
+        "integrations": {
+          "googleMapApiKey": "",
+          "ipLocateApiKey": "",
+          "redirectUrl": "",
+          "attachmentPath": "/wp-content/uploads/bookings",
+          "googleCalendar": {
+            "enabled": false,
+            "clientId": "",
+            "clientSecret": "",
+            "redirectUri": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-admin/admin.php?page=radius-booking",
+            "twoWaySync": false,
+            "syncOnCreate": true,
+            "syncOnUpdate": true,
+            "syncOnDelete": true,
+            "blockTimeSlots": false,
+            "calendarId": "primary",
+            "eventColor": "9",
+            "auth_url": "https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.events&access_type=offline&prompt=consent&state=cd9bc09b65",
+            "oauth_nonce": "cd9bc09b65"
+          }
+        },
+        "languages": [
+          "English",
+          "Assamese"
+        ],
+        "logic": {
+          "exclusiveLocation": true,
+          "singleLocationPerAgent": true
+        },
+        "pages": {
+          "bookingFormPage": 12956,
+          "myBookingPage": 12957
+        },
+        "payment": {
+          "paypal": {
+            "enabled": false,
+            "testMode": true,
+            "liveClientId": "",
+            "liveSecretKey": "",
+            "testClientId": "",
+            "testSecretKey": ""
+          },
+          "offline": {
+            "enabled": true,
+            "label": "Pay at venue",
+            "instructions": "Please bring payment to your appointment. We accept cash, check, and credit cards."
+          }
+        },
+        "permissions": {
+          "multiServiceSameTimeslot": false
+        },
+        "phone": {
+          "showAllCountries": true,
+          "defaultCountry": "US",
+          "mandatory": false,
+          "validateIfRequired": true,
+          "rejectInvalidIfRequired": true,
+          "formatOnInput": false,
+          "showDialCode": true
+        },
+        "restrictions": {
+          "earliest": "+1 hour",
+          "latest": "+6 months",
+          "minCancelTime": "+24 hours",
+          "minRescheduleTime": "+12 hours",
+          "maxFutureBookingsPerCustomer": 0
+        },
+        "security": {
+          "enableRecaptcha": false,
+          "invisibleRecaptcha": true,
+          "recaptchaSiteKey": "",
+          "recaptchaSecretKey": ""
+        },
+        "serviceList": {
+          "layout": "grid",
+          "columns": 3,
+          "perPage": 9,
+          "showImage": true,
+          "showPrice": true,
+          "showDuration": true,
+          "showCategory": true,
+          "showDescription": true,
+          "showCategoryFilter": true,
+          "showStaff": true,
+          "buttonText": "Book Now",
+          "primaryColor": "#0040ff",
+          "cardRadius": "0.75rem"
+        },
+        "staffPermissions": {
+          "canEditService": false,
+          "canCreateService": false,
+          "canDeleteService": false,
+          "canManageStaff": false,
+          "canEditWorkSchedule": false
+        },
+        "statuses": {
+          "default": "confirmed",
+          "hiddenOnCalendar": [
+            "canceled"
+          ]
+        },
+        "weeklySchedule": {
+          "monday": {
+            "enabled": true,
+            "start": "09:00",
+            "end": "17:00"
+          },
+          "tuesday": {
+            "enabled": true,
+            "start": "09:00",
+            "end": "17:00"
+          },
+          "wednesday": {
+            "enabled": true,
+            "start": "09:00",
+            "end": "17:00"
+          },
+          "thursday": {
+            "enabled": true,
+            "start": "09:00",
+            "end": "17:00"
+          },
+          "friday": {
+            "enabled": true,
+            "start": "09:00",
+            "end": "17:00"
+          },
+          "saturday": {
+            "enabled": true,
+            "start": "09:00",
+            "end": "17:00"
+          },
+          "sunday": {
+            "enabled": true,
+            "start": "09:00",
+            "end": "17:00"
+          }
+        }
+      }
+    },
+    "category": [
+      {
+        "id": "1",
+        "name": "Dental Clinic",
+        "status": "active",
+        "order_number": null,
+        "image_id": "0",
+        "translations": null,
+        "created_at": "2026-03-29 05:17:45",
+        "updated_at": "2026-03-29 05:17:45"
+      }
+    ],
+    "location": [],
+    "service": [
+      {
+        "id": "1",
+        "name": "Bright Smile Pro",
+        "description": "A modern, responsive WordPress theme perfect for dental clinics, orthodontists, and oral health professionals. Features include appointment booking, service showcase, dentist profiles, testimonials, and SEO-friendly layouts.",
+        "color": "",
+        "price": 45,
+        "status": "visible",
+        "category_id": 1,
+        "min_capacity": 1,
+        "max_capacity": 1,
+        "duration": 1800,
+        "time_before": 0,
+        "time_after": 0,
+        "bringing_anyone": false,
+        "priority": "least_occupied",
+        "picture_full_path": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/07/blog_4.webp",
+        "picture_thumb_path": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/07/blog_4-150x150.webp",
+        "position": 0,
+        "is_visible": true,
+        "aggregated_price": true,
+        "settings": {
+          "general": {
+            "defaultStatus": "confirmed",
+            "minBookingTime": "disabled",
+            "minCancelTime": "disabled",
+            "minRescheduleTime": "disabled",
+            "bookingAdvancePeriod": 365,
+            "redirectUrl": ""
+          },
+          "paymentMethods": {
+            "stripe": false,
+            "paypal": false,
+            "offline": true
+          },
+          "integrations": {
+            "googleCalender": false,
+            "googleMeet": false,
+            "zoom": false
+          }
+        },
+        "recurring_cycle": "disabled",
+        "recurring_sub": "future",
+        "recurring_payment": 0,
+        "deposit_payment": false,
+        "deposit_type": "fixed",
+        "deposit_per_person": false,
+        "deposit": 0,
+        "full_payment": false,
+        "mandatory_extra": false,
+        "min_selected_extras": 0,
+        "custom_pricing": "",
+        "max_extra_people": 0,
+        "limit_per_customer": {
+          "enabled": false,
+          "appointmentNumber": 1,
+          "timeFrame": "day",
+          "timePeriod": 1,
+          "from": "bookingDate"
+        },
+        "translations": null,
+        "listing_id": 0,
+        "source_type": "manual",
+        "created_at": "2026-03-29 05:26:33",
+        "updated_at": "2026-03-29 05:26:33"
+      },
+      {
+        "id": "2",
+        "name": "Tooth Care Hub",
+        "description": "Professional dental WordPress theme designed for clinics and private practices. Includes online booking, services, team management, patient testimonials, pricing tables, and mobile-friendly layouts for optimal user experience.",
+        "color": "",
+        "price": 40,
+        "status": "visible",
+        "category_id": 1,
+        "min_capacity": 1,
+        "max_capacity": 1,
+        "duration": 1800,
+        "time_before": 0,
+        "time_after": 0,
+        "bringing_anyone": false,
+        "priority": "least_occupied",
+        "picture_full_path": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/07/blog_6.webp",
+        "picture_thumb_path": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/07/blog_6-150x150.webp",
+        "position": 0,
+        "is_visible": true,
+        "aggregated_price": true,
+        "settings": {
+          "general": {
+            "defaultStatus": "confirmed",
+            "minBookingTime": "disabled",
+            "minCancelTime": "disabled",
+            "minRescheduleTime": "disabled",
+            "bookingAdvancePeriod": 365,
+            "redirectUrl": ""
+          },
+          "paymentMethods": {
+            "stripe": false,
+            "paypal": false,
+            "offline": true
+          },
+          "integrations": {
+            "googleCalender": false,
+            "googleMeet": false,
+            "zoom": false
+          }
+        },
+        "recurring_cycle": "disabled",
+        "recurring_sub": "future",
+        "recurring_payment": 0,
+        "deposit_payment": false,
+        "deposit_type": "fixed",
+        "deposit_per_person": false,
+        "deposit": 0,
+        "full_payment": false,
+        "mandatory_extra": false,
+        "min_selected_extras": 0,
+        "custom_pricing": "",
+        "max_extra_people": 0,
+        "limit_per_customer": {
+          "enabled": false,
+          "appointmentNumber": 1,
+          "timeFrame": "day",
+          "timePeriod": 1,
+          "from": "bookingDate"
+        },
+        "translations": null,
+        "listing_id": 0,
+        "source_type": "manual",
+        "created_at": "2026-03-29 05:27:26",
+        "updated_at": "2026-03-29 05:27:26"
+      },
+      {
+        "id": "3",
+        "name": "Dental Health Plus",
+        "description": "Clean, customizable theme for dental practices. Showcase services, introduce staff, provide online appointment forms, highlight patient reviews, and ensure a mobile-friendly design for easy accessibility.",
+        "color": "",
+        "price": 35,
+        "status": "visible",
+        "category_id": 1,
+        "min_capacity": 1,
+        "max_capacity": 1,
+        "duration": 1800,
+        "time_before": 0,
+        "time_after": 0,
+        "bringing_anyone": false,
+        "priority": "least_occupied",
+        "picture_full_path": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/07/blog_5.webp",
+        "picture_thumb_path": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/07/blog_5-150x150.webp",
+        "position": 0,
+        "is_visible": true,
+        "aggregated_price": true,
+        "settings": {
+          "general": {
+            "defaultStatus": "confirmed",
+            "minBookingTime": "disabled",
+            "minCancelTime": "disabled",
+            "minRescheduleTime": "disabled",
+            "bookingAdvancePeriod": 365,
+            "redirectUrl": ""
+          },
+          "paymentMethods": {
+            "stripe": false,
+            "paypal": false,
+            "offline": true
+          },
+          "integrations": {
+            "googleCalender": false,
+            "googleMeet": false,
+            "zoom": false
+          }
+        },
+        "recurring_cycle": "disabled",
+        "recurring_sub": "future",
+        "recurring_payment": 0,
+        "deposit_payment": false,
+        "deposit_type": "fixed",
+        "deposit_per_person": false,
+        "deposit": 0,
+        "full_payment": false,
+        "mandatory_extra": false,
+        "min_selected_extras": 0,
+        "custom_pricing": "",
+        "max_extra_people": 0,
+        "limit_per_customer": {
+          "enabled": false,
+          "appointmentNumber": 1,
+          "timeFrame": "day",
+          "timePeriod": 1,
+          "from": "bookingDate"
+        },
+        "translations": null,
+        "listing_id": 0,
+        "source_type": "manual",
+        "created_at": "2026-03-29 05:28:22",
+        "updated_at": "2026-03-29 05:28:22"
+      },
+      {
+        "id": "4",
+        "name": "Smile Clinic Pro",
+        "description": "A feature-rich theme for dentists and clinics. Includes appointment scheduling, service presentation, team profiles, gallery options, testimonials, WooCommerce compatibility, and responsive design for all devices.",
+        "color": "",
+        "price": 65,
+        "status": "visible",
+        "category_id": 1,
+        "min_capacity": 1,
+        "max_capacity": 1,
+        "duration": 1800,
+        "time_before": 0,
+        "time_after": 0,
+        "bringing_anyone": false,
+        "priority": "least_occupied",
+        "picture_full_path": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/07/blog_7.webp",
+        "picture_thumb_path": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/07/blog_7-150x150.webp",
+        "position": 0,
+        "is_visible": true,
+        "aggregated_price": true,
+        "settings": {
+          "general": {
+            "defaultStatus": "confirmed",
+            "minBookingTime": "disabled",
+            "minCancelTime": "disabled",
+            "minRescheduleTime": "disabled",
+            "bookingAdvancePeriod": 365,
+            "redirectUrl": ""
+          },
+          "paymentMethods": {
+            "stripe": false,
+            "paypal": false,
+            "offline": true
+          },
+          "integrations": {
+            "googleCalender": false,
+            "googleMeet": false,
+            "zoom": false
+          }
+        },
+        "recurring_cycle": "disabled",
+        "recurring_sub": "future",
+        "recurring_payment": 0,
+        "deposit_payment": false,
+        "deposit_type": "fixed",
+        "deposit_per_person": false,
+        "deposit": 0,
+        "full_payment": false,
+        "mandatory_extra": false,
+        "min_selected_extras": 0,
+        "custom_pricing": "",
+        "max_extra_people": 0,
+        "limit_per_customer": {
+          "enabled": false,
+          "appointmentNumber": 1,
+          "timeFrame": "day",
+          "timePeriod": 1,
+          "from": "bookingDate"
+        },
+        "translations": null,
+        "listing_id": 0,
+        "source_type": "manual",
+        "created_at": "2026-03-29 05:29:03",
+        "updated_at": "2026-03-29 05:29:03"
+      },
+      {
+        "id": "5",
+        "name": "Oral Care Center",
+        "description": "Elegant dental clinic WordPress theme with modern design. Provides sections for services, staff, testimonials, booking forms, patient resources, and is optimized for SEO and mobile responsiveness.",
+        "color": "",
+        "price": 45.99,
+        "status": "visible",
+        "category_id": 1,
+        "min_capacity": 1,
+        "max_capacity": 1,
+        "duration": 1800,
+        "time_before": 0,
+        "time_after": 0,
+        "bringing_anyone": false,
+        "priority": "least_occupied",
+        "picture_full_path": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/08/blog_1.webp",
+        "picture_thumb_path": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/08/blog_1-150x150.webp",
+        "position": 0,
+        "is_visible": true,
+        "aggregated_price": true,
+        "settings": {
+          "general": {
+            "defaultStatus": "confirmed",
+            "minBookingTime": "disabled",
+            "minCancelTime": "disabled",
+            "minRescheduleTime": "disabled",
+            "bookingAdvancePeriod": 365,
+            "redirectUrl": ""
+          },
+          "paymentMethods": {
+            "stripe": false,
+            "paypal": false,
+            "offline": true
+          },
+          "integrations": {
+            "googleCalender": false,
+            "googleMeet": false,
+            "zoom": false
+          }
+        },
+        "recurring_cycle": "disabled",
+        "recurring_sub": "future",
+        "recurring_payment": 0,
+        "deposit_payment": false,
+        "deposit_type": "fixed",
+        "deposit_per_person": false,
+        "deposit": 0,
+        "full_payment": true,
+        "mandatory_extra": false,
+        "min_selected_extras": 0,
+        "custom_pricing": "",
+        "max_extra_people": 0,
+        "limit_per_customer": {
+          "enabled": false,
+          "appointmentNumber": 1,
+          "timeFrame": "day",
+          "timePeriod": 1,
+          "from": "bookingDate"
+        },
+        "translations": null,
+        "listing_id": 0,
+        "source_type": "manual",
+        "created_at": "2026-03-29 05:30:23",
+        "updated_at": "2026-04-12 09:10:01"
+      },
+      {
+        "id": "6",
+        "name": "Healthy Teeth Clinic",
+        "description": "Stylish, functional WordPress theme for dental clinics. Features online booking, service details, dentist team pages, patient testimonials, gallery options, and a fully responsive, SEO-friendly layout.",
+        "color": "",
+        "price": 63,
+        "status": "visible",
+        "category_id": 1,
+        "min_capacity": 1,
+        "max_capacity": 1,
+        "duration": 1800,
+        "time_before": 0,
+        "time_after": 0,
+        "bringing_anyone": false,
+        "priority": "least_occupied",
+        "picture_full_path": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/08/blog_3.jpg",
+        "picture_thumb_path": "https://www.radiustheme.com/demo/wordpress/themes/nayar/wp-content/uploads/2025/08/blog_3-150x150.jpg",
+        "position": 0,
+        "is_visible": true,
+        "aggregated_price": true,
+        "settings": {
+          "general": {
+            "defaultStatus": "confirmed",
+            "minBookingTime": "disabled",
+            "minCancelTime": "disabled",
+            "minRescheduleTime": "disabled",
+            "bookingAdvancePeriod": 365,
+            "redirectUrl": ""
+          },
+          "paymentMethods": {
+            "stripe": false,
+            "paypal": false,
+            "offline": true
+          },
+          "integrations": {
+            "googleCalender": false,
+            "googleMeet": false,
+            "zoom": false
+          }
+        },
+        "recurring_cycle": "disabled",
+        "recurring_sub": "future",
+        "recurring_payment": 0,
+        "deposit_payment": false,
+        "deposit_type": "fixed",
+        "deposit_per_person": false,
+        "deposit": 0,
+        "full_payment": false,
+        "mandatory_extra": false,
+        "min_selected_extras": 0,
+        "custom_pricing": "",
+        "max_extra_people": 0,
+        "limit_per_customer": {
+          "enabled": false,
+          "appointmentNumber": 1,
+          "timeFrame": "day",
+          "timePeriod": 1,
+          "from": "bookingDate"
+        },
+        "translations": null,
+        "listing_id": 0,
+        "source_type": "manual",
+        "created_at": "2026-03-29 05:31:12",
+        "updated_at": "2026-03-29 05:31:12"
+      }
+    ],
+    "staff": [
+      {
+        "id": "1",
+        "user_type": "employee",
+        "email": "dev-email@wpengine.local",
+        "status": "active",
+        "created_by": null,
+        "created_at": "2026-03-29 05:11:49",
+        "updated_at": "2026-03-29 05:11:49",
+        "profile": {
+          "user_id": "1",
+          "wp_user_id": "1",
+          "first_name": "radius",
+          "last_name": "",
+          "phone": null,
+          "image_id": null,
+          "gender": "",
+          "time_zone": null,
+          "note": null,
+          "badge_id": null,
+          "location_id": null,
+          "translations": null,
+          "created_at": "2026-03-29 05:11:49",
+          "updated_at": "2026-03-29 05:11:49"
+        },
+        "services": [],
+        "days_off": [],
+        "weekdays": [],
+        "special_days": []
+      },
+      {
+        "id": "2",
+        "user_type": "employee",
+        "email": "support@radiustheme.com",
+        "status": "active",
+        "created_by": null,
+        "created_at": "2026-03-29 05:24:51",
+        "updated_at": "2026-03-29 05:24:51",
+        "profile": {
+          "user_id": "2",
+          "wp_user_id": null,
+          "first_name": "Dr. Paul ",
+          "last_name": "Farmer",
+          "phone": null,
+          "image_id": null,
+          "gender": "",
+          "time_zone": null,
+          "note": null,
+          "badge_id": null,
+          "location_id": null,
+          "translations": null,
+          "created_at": "2026-03-29 05:24:51",
+          "updated_at": "2026-03-29 05:24:51"
+        },
+        "services": [
+          {
+            "user_id": "2",
+            "service_id": "1",
+            "price": 45,
+            "min_capacity": 1,
+            "max_capacity": 1,
+            "custom_pricing": {
+              "enabled": false,
+              "durations": [
+                {
+                  "duration": "1800",
+                  "price": 0
+                }
+              ]
+            },
+            "created_at": "2026-03-29 05:26:33",
+            "updated_at": "2026-03-29 05:26:33"
+          },
+          {
+            "user_id": "2",
+            "service_id": "2",
+            "price": 40,
+            "min_capacity": 1,
+            "max_capacity": 1,
+            "custom_pricing": {
+              "enabled": false,
+              "durations": [
+                {
+                  "duration": "1800",
+                  "price": 0
+                }
+              ]
+            },
+            "created_at": "2026-03-29 05:27:26",
+            "updated_at": "2026-03-29 05:27:26"
+          },
+          {
+            "user_id": "2",
+            "service_id": "3",
+            "price": 35,
+            "min_capacity": 1,
+            "max_capacity": 1,
+            "custom_pricing": {
+              "enabled": false,
+              "durations": [
+                {
+                  "duration": "1800",
+                  "price": 0
+                }
+              ]
+            },
+            "created_at": "2026-03-29 05:28:22",
+            "updated_at": "2026-03-29 05:28:22"
+          },
+          {
+            "user_id": "2",
+            "service_id": "4",
+            "price": 65,
+            "min_capacity": 1,
+            "max_capacity": 1,
+            "custom_pricing": {
+              "enabled": false,
+              "durations": [
+                {
+                  "duration": "1800",
+                  "price": 0
+                }
+              ]
+            },
+            "created_at": "2026-03-29 05:29:03",
+            "updated_at": "2026-03-29 05:29:03"
+          },
+          {
+            "user_id": "2",
+            "service_id": "5",
+            "price": 0,
+            "min_capacity": 1,
+            "max_capacity": 1,
+            "custom_pricing": {
+              "enabled": false,
+              "durations": [
+                {
+                  "duration": "1800",
+                  "price": 0
+                }
+              ]
+            },
+            "created_at": "2026-03-29 05:30:23",
+            "updated_at": "2026-03-29 05:30:23"
+          },
+          {
+            "user_id": "2",
+            "service_id": "6",
+            "price": 63,
+            "min_capacity": 1,
+            "max_capacity": 1,
+            "custom_pricing": {
+              "enabled": false,
+              "durations": [
+                {
+                  "duration": "1800",
+                  "price": 0
+                }
+              ]
+            },
+            "created_at": "2026-03-29 05:31:12",
+            "updated_at": "2026-03-29 05:31:12"
+          }
+        ],
+        "days_off": [],
+        "weekdays": [],
+        "special_days": []
+      }
+    ],
+    "customer": [
+      {
+        "id": "3",
+        "user_type": "customer",
+        "email": "brightonomondi4@gmail.com",
+        "status": "active",
+        "created_by": null,
+        "created_at": "2026-04-04 11:06:29",
+        "updated_at": "2026-04-04 11:06:29",
+        "profile": {
+          "user_id": "3",
+          "wp_user_id": "2",
+          "first_name": "Brighton",
+          "last_name": "Omondi",
+          "phone": null,
+          "image_id": null,
+          "gender": "",
+          "time_zone": null,
+          "note": null,
+          "badge_id": null,
+          "location_id": null,
+          "translations": null,
+          "created_at": "2026-04-04 11:06:29",
+          "updated_at": "2026-04-04 11:06:29"
+        }
+      },
+      {
+        "id": "4",
+        "user_type": "customer",
+        "email": "fahimgreen@gmail.com",
+        "status": "active",
+        "created_by": null,
+        "created_at": "2026-04-05 09:01:56",
+        "updated_at": "2026-04-05 09:01:56",
+        "profile": {
+          "user_id": "4",
+          "wp_user_id": "3",
+          "first_name": "KAZI",
+          "last_name": "FAHIMUR RAHMAN",
+          "phone": null,
+          "image_id": null,
+          "gender": "",
+          "time_zone": null,
+          "note": null,
+          "badge_id": null,
+          "location_id": null,
+          "translations": null,
+          "created_at": "2026-04-05 09:01:56",
+          "updated_at": "2026-04-05 09:01:56"
+        }
+      }
+    ],
+    "appointment": [
+      {
+        "id": "1",
+        "employee_id": 2,
+        "service_id": 2,
+        "appointment_date": "2026-04-14",
+        "start_time": "11:30:00",
+        "end_time": "12:00:00",
+        "status": "confirmed",
+        "location_id": null,
+        "notify_customer": "1",
+        "notes": "",
+        "cancellation_reason": null,
+        "parent_id": null,
+        "created_at": "2026-04-04 11:06:29",
+        "updated_at": "2026-04-04 11:06:29",
+        "deleted_at": null,
+        "bookings": [
+          {
+            "appointment_id": "1",
+            "customer_id": "3",
+            "status": "confirmed",
+            "price": "40",
+            "persons": "0",
+            "coupon_id": null,
+            "token": "JYe381cG70",
+            "customer_info": {
+              "first_name": "Brighton",
+              "last_name": "Omondi",
+              "email": "brightonomondi4@gmail.com"
+            },
+            "custom_info": [],
+            "utc_offset": "0",
+            "duration": "1800",
+            "created_at": "2026-04-04 11:06:30",
+            "updated_at": "2026-04-04 11:06:30",
+            "payment": {
+              "booking_id": "1",
+              "customer_id": "3",
+              "transaction_id": "",
+              "payment_method": "offline",
+              "amount": "0",
+              "total_amount": "40",
+              "due_amount": "40",
+              "status": "pending",
+              "booking_date_time": "2026-04-14 11:30:00",
+              "parent_id": null,
+              "booking_type": "service",
+              "invoice_id": null,
+              "paid_at": null,
+              "cancelled_at": null,
+              "coupon_id": null,
+              "coupon_code": null,
+              "discount_amount": "0",
+              "tax_rate": "0",
+              "tax_amount": "0",
+              "created_at": "2026-04-04 11:06:30",
+              "updated_at": "2026-04-04 11:06:30"
+            }
+          }
+        ],
+        "integrations": []
+      },
+      {
+        "id": "2",
+        "employee_id": 2,
+        "service_id": 1,
+        "appointment_date": "2026-04-08",
+        "start_time": "09:30:00",
+        "end_time": "10:00:00",
+        "status": "confirmed",
+        "location_id": null,
+        "notify_customer": "1",
+        "notes": "dwad",
+        "cancellation_reason": null,
+        "parent_id": null,
+        "created_at": "2026-04-05 09:01:56",
+        "updated_at": "2026-04-05 09:01:56",
+        "deleted_at": null,
+        "bookings": [
+          {
+            "appointment_id": "2",
+            "customer_id": "4",
+            "status": "confirmed",
+            "price": "45",
+            "persons": "0",
+            "coupon_id": null,
+            "token": "r9bpcUHGGV",
+            "customer_info": {
+              "first_name": "KAZI",
+              "last_name": "FAHIMUR RAHMAN",
+              "email": "fahimgreen@gmail.com"
+            },
+            "custom_info": [],
+            "utc_offset": "0",
+            "duration": "1800",
+            "created_at": "2026-04-05 09:01:56",
+            "updated_at": "2026-04-05 09:01:56",
+            "payment": {
+              "booking_id": "2",
+              "customer_id": "4",
+              "transaction_id": "",
+              "payment_method": "offline",
+              "amount": "0",
+              "total_amount": "45",
+              "due_amount": "45",
+              "status": "pending",
+              "booking_date_time": "2026-04-08 09:30:00",
+              "parent_id": null,
+              "booking_type": "service",
+              "invoice_id": null,
+              "paid_at": null,
+              "cancelled_at": null,
+              "coupon_id": null,
+              "coupon_code": null,
+              "discount_amount": "0",
+              "tax_rate": "0",
+              "tax_amount": "0",
+              "created_at": "2026-04-05 09:01:56",
+              "updated_at": "2026-04-05 09:01:56"
+            }
+          }
+        ],
+        "integrations": []
+      },
+      {
+        "id": "3",
+        "employee_id": 2,
+        "service_id": 1,
+        "appointment_date": "2026-04-15",
+        "start_time": "09:00:00",
+        "end_time": "09:30:00",
+        "status": "confirmed",
+        "location_id": null,
+        "notify_customer": "1",
+        "notes": "",
+        "cancellation_reason": null,
+        "parent_id": null,
+        "created_at": "2026-04-12 08:37:03",
+        "updated_at": "2026-04-12 08:37:03",
+        "deleted_at": null,
+        "bookings": [
+          {
+            "appointment_id": "3",
+            "customer_id": "4",
+            "status": "confirmed",
+            "price": "45",
+            "persons": "0",
+            "coupon_id": null,
+            "token": "DGADDG2ttP",
+            "customer_info": {
+              "first_name": "KAZI",
+              "last_name": "FAHIMUR RAHMAN",
+              "email": "fahimgreen@gmail.com"
+            },
+            "custom_info": [],
+            "utc_offset": "0",
+            "duration": "1800",
+            "created_at": "2026-04-12 08:37:03",
+            "updated_at": "2026-04-12 08:37:03",
+            "payment": {
+              "booking_id": "3",
+              "customer_id": "4",
+              "transaction_id": "",
+              "payment_method": "offline",
+              "amount": "0",
+              "total_amount": "45",
+              "due_amount": "45",
+              "status": "pending",
+              "booking_date_time": "2026-04-15 09:00:00",
+              "parent_id": null,
+              "booking_type": "service",
+              "invoice_id": null,
+              "paid_at": null,
+              "cancelled_at": null,
+              "coupon_id": null,
+              "coupon_code": null,
+              "discount_amount": "0",
+              "tax_rate": "0",
+              "tax_amount": "0",
+              "created_at": "2026-04-12 08:37:03",
+              "updated_at": "2026-04-12 08:37:03"
+            }
+          }
+        ],
+        "integrations": []
+      }
+    ]
+  }
+}
