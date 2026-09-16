@@ -14,6 +14,7 @@ use RT\NayarCore\Elementor\Controls\Select2AjaxControl;
 use RT\NayarCore\Helper\Fns;
 use RT\NayarCore\Traits\SingletonTraits;
 use RT\NayarCore\Elementor\Core\ElementorCore;
+use RT\NayarCore\Elementor\Integrations\RadiusBooking;
 use RT\NayarCore\Modules\IconList;
 use RT\NayarCore\Elementor\Widgets\Title;
 use RT\NayarCore\Elementor\Widgets\Button;
@@ -49,6 +50,7 @@ class ElementorController {
 	use SingletonTraits;
 	public function __construct() {
 		ElementorCore::instance();
+		RadiusBooking::instance();
 		add_action( 'elementor/widgets/register', [ $this, 'register_widget' ] );
 		add_action( 'elementor/elements/categories_registered', [ $this, 'widget_category' ] );
 		add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'editor_style' ] );
