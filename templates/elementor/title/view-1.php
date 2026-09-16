@@ -46,12 +46,47 @@ $animation_headline = ( $animation_headline_display == 'yes' ) ? 'rt-animated-he
 			<div class="top-sub-title-wrap <?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="200ms" data-wow-duration="1200ms">
                 <span class="top-sub-title <?php echo esc_attr( $sub_title_style );?>">
                     <?php
-                    if ( $top_title_icon && ( 'left' == $icon_position || 'both' == $icon_position ) ) {
-	                    echo '<i style="margin-right:5px" class="' . esc_attr( $top_title_icon ) . '" aria-hidden="true"></i>';
+                    $sub_icon_type  = ! empty( $top_title_icon_type ) ? $top_title_icon_type : 'icon';
+                    $sub_image_html = '';
+                    if ( 'image' === $sub_icon_type && ! empty( $top_title_image['url'] ) ) {
+                        $sub_image_html = ! empty( $top_title_image['id'] )
+                            ? wp_get_attachment_image( $top_title_image['id'], 'full', false, [ 'class' => 'sub-title-image' ] )
+                            : '<img class="sub-title-image" src="' . esc_url( $top_title_image['url'] ) . '" alt="">';
+                    }
+                    $sub_icon = ( 'icon' === $sub_icon_type ) ? $top_title_icon : '';
+
+                    if ( 'left' == $icon_position || 'both' == $icon_position ) {
+                        if ( $sub_image_html ) {
+                            echo '<span class="sub-title-image-wrap" style="margin-right:5px;display:inline-flex;vertical-align:middle">' . $sub_image_html . '</span>';
+                        } elseif ( $sub_icon ) {
+                            echo '<i style="margin-right:5px" class="' . esc_attr( $sub_icon ) . '" aria-hidden="true"></i>';
+                        }
                     }
                     echo esc_html( $top_sub_title );
-                    if ( $top_title_icon && ( 'right' == $icon_position || 'both' == $icon_position ) ) {
-	                    echo '<i style="margin-left:5px;transform:scaleX(-1)" class="' . esc_attr( $top_title_icon ) . '" aria-hidden="true"></i>';
+                    if ( 'right' == $icon_position || 'both' == $icon_position ) {
+                        // Right side defaults to the left icon/image (mirrored icon).
+                        $right_image_html = $sub_image_html;
+                        $right_icon       = $sub_icon;
+                        $right_icon_style = 'margin-left:5px;transform:scaleX(-1)';
+
+                        // Use the separate right icon/image when set.
+                        $right_type = ! empty( $top_title_right_icon_type ) ? $top_title_right_icon_type : 'icon';
+                        if ( 'image' === $right_type && ! empty( $top_title_right_image['url'] ) ) {
+                            $right_image_html = ! empty( $top_title_right_image['id'] )
+                                ? wp_get_attachment_image( $top_title_right_image['id'], 'full', false, [ 'class' => 'sub-title-image-right' ] )
+                                : '<img class="sub-title-image-right" src="' . esc_url( $top_title_right_image['url'] ) . '" alt="">';
+                            $right_icon       = '';
+                        } elseif ( 'icon' === $right_type && ! empty( $top_title_right_icon ) ) {
+                            $right_image_html = '';
+                            $right_icon       = $top_title_right_icon;
+                            $right_icon_style = 'margin-left:5px';
+                        }
+
+                        if ( $right_image_html ) {
+                            echo '<span class="sub-title-image-wrap" style="margin-left:5px;display:inline-flex;vertical-align:middle">' . $right_image_html . '</span>';
+                        } elseif ( $right_icon ) {
+                            echo '<i style="' . esc_attr( $right_icon_style ) . '" class="' . esc_attr( $right_icon ) . '" aria-hidden="true"></i>';
+                        }
                     }
                     ?>
                 </span>
@@ -79,7 +114,7 @@ $animation_headline = ( $animation_headline_display == 'yes' ) ? 'rt-animated-he
 	    <?php if ( $feature_lists && $show_feature_list ) { ?>
         <ul class="feature-list <?php echo esc_attr( $list_layout );?> <?php echo esc_attr( $list_column );?>">
 	        <?php $ade = $delay; $adu = $duration; foreach ( $feature_lists as $feature): ?>
-                <li class="<?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $ade );?>ms" data-wow-duration="<?php echo esc_attr( $adu );?>ms"><?php if( $feature['list_icon'] ) { ?><span class="icon"><?php Icons_Manager::render_icon( $feature['list_icon'] ); ?></span><?php } ?><?php echo esc_html( $feature['list_text'] ); ?></li>
+                <li class="<?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $ade );?>ms" data-wow-duration="<?php echo esc_attr( $adu );?>ms"><?php $list_icon_type = ! empty( $feature['list_icon_type'] ) ? $feature['list_icon_type'] : 'icon'; if ( 'image' === $list_icon_type && ! empty( $feature['list_image']['url'] ) ) { ?><span class="icon icon-image"><?php if ( ! empty( $feature['list_image']['id'] ) ) { echo wp_get_attachment_image( $feature['list_image']['id'], 'full' ); } else { ?><img src="<?php echo esc_url( $feature['list_image']['url'] ); ?>" alt="<?php echo esc_attr( $feature['list_text'] ); ?>"><?php } ?></span><?php } elseif ( 'icon' === $list_icon_type && ! empty( $feature['list_icon']['value'] ) ) { ?><span class="icon"><?php Icons_Manager::render_icon( $feature['list_icon'] ); ?></span><?php } ?><?php echo esc_html( $feature['list_text'] ); ?></li>
             <?php $ade = $ade + 200; $adu = $adu + 0; endforeach; ?>
         </ul>
 	    <?php } ?>

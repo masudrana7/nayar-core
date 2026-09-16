@@ -154,6 +154,18 @@ class Title extends ElementorBase {
 			]
 		);
 		$repeater->add_control(
+			'list_icon_type',
+			[
+				'label'   => __( 'Icon Type', 'nayar-core' ),
+				'type'    => \Elementor\Controls_Manager::SELECT,
+				'default' => 'icon',
+				'options' => [
+					'icon'  => __( 'Icon', 'nayar-core' ),
+					'image' => __( 'Image', 'nayar-core' ),
+				],
+			]
+		);
+		$repeater->add_control(
 			'list_icon',
 			[
 				'label'            => __( 'Choose Icon', 'nayar-core' ),
@@ -162,6 +174,22 @@ class Title extends ElementorBase {
 				'default'          => [
 					'value'   => 'icon-rt-correct',
 					'library' => 'solid',
+				],
+				'condition'        => [
+					'list_icon_type' => 'icon',
+				],
+			]
+		);
+		$repeater->add_control(
+			'list_image',
+			[
+				'label'     => __( 'Choose Image', 'nayar-core' ),
+				'type'      => \Elementor\Controls_Manager::MEDIA,
+				'default'   => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+				'condition' => [
+					'list_icon_type' => 'image',
 				],
 			]
 		);
@@ -418,6 +446,19 @@ class Title extends ElementorBase {
 		);
 
 		$this->add_control(
+			'top_title_icon_type',
+			[
+				'label'   => __( 'Icon Type', 'nayar-core' ),
+				'type'    => \Elementor\Controls_Manager::SELECT,
+				'default' => 'icon',
+				'options' => [
+					'icon'  => __( 'Icon', 'nayar-core' ),
+					'image' => __( 'Image', 'nayar-core' ),
+				],
+			]
+		);
+
+		$this->add_control(
 			'top_title_icon',
 			[
 				'label'   => __( 'Choose Icons', 'nayar-core' ),
@@ -429,6 +470,23 @@ class Title extends ElementorBase {
 					'icon-rt-chevron-right',
 				],
 				'default' => '',
+				'condition' => [
+					'top_title_icon_type' => 'icon',
+				],
+			]
+		);
+
+		$this->add_control(
+			'top_title_image',
+			[
+				'label'     => __( 'Choose Image', 'nayar-core' ),
+				'type'      => \Elementor\Controls_Manager::MEDIA,
+				'default'   => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+				'condition' => [
+					'top_title_icon_type' => 'image',
+				],
 			]
 		);
 
@@ -444,8 +502,99 @@ class Title extends ElementorBase {
 					'right' => __( 'Right', 'nayar-core' ),
 					'both'  => __( 'Both', 'nayar-core' ),
 				],
+				'conditions' => [
+					'relation' => 'or',
+					'terms'    => [
+						[
+							'name'     => 'top_title_icon_type',
+							'operator' => '==',
+							'value'    => 'image',
+						],
+						[
+							'name'     => 'top_title_icon',
+							'operator' => '!=',
+							'value'    => '',
+						],
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'top_title_right_icon_type',
+			[
+				'label'     => __( 'Right Icon Type', 'nayar-core' ),
+				'type'      => \Elementor\Controls_Manager::SELECT,
+				'default'   => 'icon',
+				'options'   => [
+					'icon'  => __( 'Icon', 'nayar-core' ),
+					'image' => __( 'Image', 'nayar-core' ),
+				],
+				'separator' => 'before',
 				'condition' => [
-					'top_title_icon!' => '',
+					'icon_position' => [ 'right', 'both' ],
+				],
+			]
+		);
+
+		$this->add_control(
+			'top_title_right_icon',
+			[
+				'label'       => __( 'Right Icon', 'nayar-core' ),
+				'type'        => \Elementor\Controls_Manager::ICON,
+				'include'     => [
+					'icon-rt-arrow-right-1',
+					'icon-rt-correct',
+					'icon-rt-arrow-vector',
+					'icon-rt-chevron-right',
+				],
+				'default'     => '',
+				'description' => __( 'Leave empty to use the left icon.', 'nayar-core' ),
+				'condition'   => [
+					'icon_position'             => [ 'right', 'both' ],
+					'top_title_right_icon_type' => 'icon',
+				],
+			]
+		);
+
+		$this->add_control(
+			'top_title_right_image',
+			[
+				'label'     => __( 'Right Image', 'nayar-core' ),
+				'type'      => \Elementor\Controls_Manager::MEDIA,
+				'default'   => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+				'condition' => [
+					'icon_position'             => [ 'right', 'both' ],
+					'top_title_right_icon_type' => 'image',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'top_title_right_image_width',
+			[
+				'label'      => __( 'Right Image Width', 'nayar-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range'      => [
+					'px' => [
+						'min'  => 5,
+						'max'  => 200,
+						'step' => 1,
+					],
+					'%'  => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title .sub-title-image-right' => 'width: {{SIZE}}{{UNIT}}; height: auto;',
+				],
+				'condition'  => [
+					'icon_position'             => [ 'right', 'both' ],
+					'top_title_right_icon_type' => 'image',
 				],
 			]
 		);
@@ -467,7 +616,34 @@ class Title extends ElementorBase {
 					'{{WRAPPER}} .section-title-wrapper .top-sub-title i'   => 'font-size: {{SIZE}}{{UNIT}};',
 				],
 				'condition'  => [
-					'top_title_icon!' => '',
+					'top_title_icon_type' => 'icon',
+					'top_title_icon!'     => '',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'top_title_image_width',
+			[
+				'label'      => __( 'Image Width', 'nayar-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range'      => [
+					'px' => [
+						'min'  => 5,
+						'max'  => 200,
+						'step' => 1,
+					],
+					'%'  => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title .sub-title-image' => 'width: {{SIZE}}{{UNIT}}; height: auto;',
+				],
+				'condition'  => [
+					'top_title_icon_type' => 'image',
 				],
 			]
 		);
@@ -492,7 +668,8 @@ class Title extends ElementorBase {
 					'{{WRAPPER}} .section-title-wrapper .top-sub-title svg path' => 'fill: {{VALUE}}',
 				],
 				'condition' => [
-					'top_title_icon!' => '',
+					'top_title_icon_type' => 'icon',
+					'top_title_icon!'     => '',
 				],
 			]
 		);
@@ -1067,6 +1244,29 @@ class Title extends ElementorBase {
 		);
 
 		$this->add_responsive_control(
+			'list_image_width',
+			[
+				'label'      => __( 'List Image Width', 'nayar-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 200,
+						'step' => 1,
+					],
+					'%'  => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .section-title-wrapper .feature-list li .icon img' => 'width: {{SIZE}}{{UNIT}}; height: auto;',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
 			'list_padding',
 			[
 				'label'              => __( 'List Padding', 'nayar-core' ),
@@ -1222,7 +1422,6 @@ class Title extends ElementorBase {
 				$template = 'view-1';
 				break;
 		}
-
 		Fns::get_template( "elementor/title/$template", $data );
 	}
 

@@ -49,10 +49,25 @@ class Counter extends ElementorBase {
 					'layout-2' => __( 'Layout 02', 'nayar-core' ),
 					'layout-3' => __( 'Layout 03', 'nayar-core' ),
 					'layout-4' => __( 'Layout 04', 'nayar-core' ),
+					'layout-5' => __( 'Layout 05', 'nayar-core' ),
 				],
 				'default'     => 'layout-1',
 			]
 		);
+
+        $this->add_control(
+            'counter_image',
+            [
+                'label'   => __( 'Counter Image', 'nayar-core' ),
+                'type'    => \Elementor\Controls_Manager::MEDIA,
+                'default' => [
+                    'url' => \Elementor\Utils::get_placeholder_image_src(),
+                ],
+                'condition' => [
+                    'layout' => ['layout-5'],
+                ],
+            ]
+        );
 
 		$this->add_control(
 			'title',
@@ -410,6 +425,42 @@ class Counter extends ElementorBase {
 
 		$this->end_controls_section();
 
+		// Image style
+		$this->start_controls_section(
+			'image_style',
+			[
+				'label'     => esc_html__( 'Image', 'nayar-core' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'layout' => 'layout-5',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'image_max_width',
+			[
+				'label'      => __( 'Image Max Width', 'nayar-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 1000,
+						'step' => 1,
+					],
+					'%'  => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .rt-counter-layout .counter-image img' => 'max-width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_section();
 		// Counter number setting
 		$this->start_controls_section(
 			'counter_style',
@@ -496,6 +547,15 @@ class Counter extends ElementorBase {
 				],
 			]
 		);
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name'     => 'counter_unit_ty',
+                'label'    => esc_html__( 'Counter Unit', 'nayar-core' ),
+                'selector' => '{{WRAPPER}} .rt-counter-layout .rt-counter-box .counter-unit',
+            ]
+        );
 
 		$this->end_controls_section();
 

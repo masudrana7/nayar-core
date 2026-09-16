@@ -32,7 +32,11 @@ if ( ! empty( $link['url'] ) ) {
             <?php if( '2' === $button_style ) { ?>
                 <a class="rt-primary-btn btn button-<?php echo esc_attr( $button_style ); ?> <?php if( !empty( $icon_position ) ) { ?><?php echo esc_attr( $icon_position ); ?><?php } ?>" <?php echo wp_kses_post( $attr ); ?> aria-label="button link">
 	                <?php echo esc_html( $button_text );?>
-	                <?php \Elementor\Icons_Manager::render_icon( $button_icon ); ?>
+                    <?php if( $button_icon ) { ?>
+                        <span class="btn-icon">
+                            <?php \Elementor\Icons_Manager::render_icon( $button_icon ); ?>
+                        </span>
+                    <?php } ?>
                 </a>
             <?php } else{ ?>
                 <a class="rt-button rt-button-<?php echo esc_attr( $button_style ); ?> <?php if( !empty( $icon_position ) ) { ?><?php echo esc_attr( $icon_position ); ?><?php } ?>" <?php echo wp_kses_post( $attr ); ?> aria-label="button link">

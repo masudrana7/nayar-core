@@ -233,7 +233,6 @@ class Button extends ElementorBase {
 				'label'     => esc_html__( 'Color', 'nayar-core' ),
 				'selectors' => [
 					'{{WRAPPER}} .rt-button .rt-primary-btn' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .rt-button .rt-primary-btn i' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -366,7 +365,7 @@ class Button extends ElementorBase {
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'fa4compatibility' => 'icon',
 				'default'          => [
-					'value'   => 'icon-rt-right-arrow',
+					'value'   => 'icon-rt-arrow-right-1',
 					'library' => 'solid',
 				],
 			]
@@ -404,6 +403,7 @@ class Button extends ElementorBase {
 				'selectors' => [
 					'{{WRAPPER}} .rt-button i'        => 'color: {{VALUE}}',
 					'{{WRAPPER}} .rt-button svg path' => 'fill: {{VALUE}}',
+                    '{{WRAPPER}} .rt-button .rt-primary-btn i' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -414,10 +414,8 @@ class Button extends ElementorBase {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => esc_html__( 'Icon BG Color', 'nayar-core' ),
 				'selectors' => [
+					'{{WRAPPER}} .rt-button .btn-icon'        => 'background: {{VALUE}}',
 					'{{WRAPPER}} .rt-button .icon-area'        => 'background: {{VALUE}}',
-				],
-				'condition'   => [
-					'button_style' => [ '1' ]
 				],
 			]
 		);
@@ -430,6 +428,7 @@ class Button extends ElementorBase {
 				'selectors' => [
 					'{{WRAPPER}} .rt-button:hover i'        => 'color: {{VALUE}}',
 					'{{WRAPPER}} .rt-button:hover svg path' => 'fill: {{VALUE}}',
+                    '{{WRAPPER}} .rt-button:hover .rt-primary-btn i' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -440,10 +439,8 @@ class Button extends ElementorBase {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => esc_html__( 'Icon Hover BG Color', 'nayar-core' ),
 				'selectors' => [
+					'{{WRAPPER}} .rt-button:hover .btn-icon'        => 'background: {{VALUE}}',
 					'{{WRAPPER}} .rt-button:hover .icon-area'        => 'background: {{VALUE}}',
-				],
-				'condition'   => [
-					'button_style' => [ '1' ]
 				],
 			]
 		);
@@ -466,10 +463,8 @@ class Button extends ElementorBase {
 					],
 				],
 				'selectors' => [
+					'{{WRAPPER}} .btn-icon' => 'height: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .icon-area' => 'height: {{SIZE}}{{UNIT}};',
-				],
-				'condition'   => [
-					'button_style' => [ '1' ]
 				],
 			]
 		);
@@ -492,10 +487,8 @@ class Button extends ElementorBase {
 					],
 				],
 				'selectors' => [
+					'{{WRAPPER}} .btn-icon' => 'width: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .icon-area' => 'width: {{SIZE}}{{UNIT}};',
-				],
-				'condition'   => [
-					'button_style' => [ '1' ]
 				],
 			]
 		);
@@ -519,9 +512,7 @@ class Button extends ElementorBase {
 				],
 				'selectors' => [
 					'{{WRAPPER}} .icon-area' => 'line-height: {{SIZE}}{{UNIT}};',
-				],
-				'condition'   => [
-					'button_style' => [ '1' ]
+					'{{WRAPPER}} .btn-icon' => 'line-height: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
