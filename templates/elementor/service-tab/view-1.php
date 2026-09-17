@@ -37,7 +37,11 @@ use Elementor\Icons_Manager;
             $i = 0;
             foreach ( $items as $item ) : ?>
             <li>
-	            <?php  if('icon' == $item['icon_type'] || 'image' == $item['icon_type']) : ?>
+                <a href="#" class="list-item" data-list-hover="<?php echo esc_attr($i); ?>">
+                    <<?php echo esc_attr( $title_tag ); ?> class="list-title"><?php nayar_html( $item['title'], 'allow_title' ); ?></<?php echo esc_attr( $title_tag ); ?>>
+                    <span class="list-sub-title"><?php nayar_html( $item['sub_title'], 'allow_title' ); ?></span>
+                </a>
+                <?php  if('icon' == $item['icon_type'] || 'image' == $item['icon_type']) : ?>
                     <span class="icon-holder">
                         <?php
                         if('icon' == $item['icon_type']) {
@@ -45,13 +49,9 @@ use Elementor\Icons_Manager;
                         } elseif ('icon_image' == $item['icon_type']) {
                             echo wp_get_attachment_image( $item['icon_image']['id'], 'full' );
                         }
-                    ?>
+                        ?>
                 </span>
-	            <?php endif; ?>
-                <a href="#" class="list-item" data-list-hover="<?php echo esc_attr($i); ?>">
-                    <<?php echo esc_attr( $title_tag ); ?> class="list-title"><?php nayar_html( $item['title'], 'allow_title' ); ?></<?php echo esc_attr( $title_tag ); ?>>
-                    <span class="list-sub-title"><?php nayar_html( $item['sub_title'], 'allow_title' ); ?></span>
-                </a>
+                <?php endif; ?>
             </li>
             <?php $i++; endforeach; ?>
         </ul>

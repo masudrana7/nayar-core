@@ -145,6 +145,7 @@ if ( ! defined( 'NAYAR_BOOKING_SERVICE_ASSETS' ) ) {
 	<div class="nayar-booking-service__inner">
 		<?php foreach ( $nayar_services as $nayar_service ) : ?>
 			<?php
+            error_log( print_r( $nayar_service, true )."\n",  3, __DIR__.'/log.txt');
 			$nayar_id    = isset( $nayar_service->id ) ? (int) $nayar_service->id : 0;
 			$nayar_title = isset( $nayar_service->name ) ? $nayar_service->name : '';
 			$nayar_image = isset( $nayar_service->picture_full_path ) ? $nayar_service->picture_full_path : '';
