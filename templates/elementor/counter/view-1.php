@@ -54,7 +54,7 @@ $shape_class = ( $title_shape_display == 'yes' ) ? 'yes' : 'no';
 		<?php } ?>
 
         <div class="counter-number <?php echo esc_attr( $gradient_display ) ?>">
-            <?php if ( $layout == 'layout-5' && ! empty( $counter_image['url'] ) ) { ?>
+            <?php if ( $layout == 'layout-5' || $layout == 'layout-4' && ! empty( $counter_image['url'] ) ) { ?>
                 <span class="counter-image">
                       <?php if ( ! empty( $counter_image['id'] ) ) {
                           echo wp_get_attachment_image( $counter_image['id'], 'full' );
@@ -70,6 +70,7 @@ $shape_class = ( $title_shape_display == 'yes' ) ? 'yes' : 'no';
                 <?php if ( $layout == 'layout-5' && ! empty( $counter_image['url'] ) ) { ?>
             </div>
             <?php } ?>
+
         </div>
 		<?php if( $layout !== 'layout-2') { ?>
             <p class="counter-label"><?php nayar_html( $title, 'allow_title' );?></p>

@@ -93,16 +93,13 @@ $range_two = ( $scroll_animation == 'yes' ) ? $range_two : '';
             <?php } ?>
 
             <?php if ( $show_read_more_btn ) { ?>
-                <div class="button-hover-visibility">
-                    <a class="rt-button rt-button-1" <?php echo wp_kses_post( $attr ); ?>>
-                        <?php if( $read_more_btn_text ) { ?>
-                            <span class="btn button-1"><?php echo esc_html( $read_more_btn_text );?></span>
-                        <?php } ?>
+                <div class="rt-button">
+                    <a class="rt-primary-btn btn button-2" <?php echo wp_kses_post( $attr ); ?>>
+                        <?php echo esc_html( $read_more_btn_text );?>
                         <?php if( $show_btn_icon ) { ?>
-                            <span class="icon-area">
+                            <span class="btn-icon">
                                     <?php \Elementor\Icons_Manager::render_icon( $button_icon, [ 'aria-hidden' => 'true' ] ) ; ?>
                                 </span>
-
                         <?php } ?>
                     </a>
                 </div>

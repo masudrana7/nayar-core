@@ -101,7 +101,6 @@ class BookingService extends ServiceListWidget {
 		if ( ! is_array( $keywords ) ) {
 			$keywords = [];
 		}
-
 		return array_values( array_unique( array_merge( $keywords, [ 'booking service', 'nayar' ] ) ) );
 	}
 
@@ -130,6 +129,18 @@ class BookingService extends ServiceListWidget {
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
+        $this->add_control(
+            'layout_style',
+            [
+                'label'       => esc_html__( 'Layout', 'nayar-core' ),
+                'type'        => Controls_Manager::SELECT2,
+                'options'   => [
+                    'layout-1' => __( 'Layout 01', 'nayar-core' ),
+                    'layout-2' => __( 'Layout 02', 'nayar-core' ),
+                ],
+                'default'     => 'layout-1',
+            ]
+        );
 
 		$this->add_control(
 			'nayar_wrapper_class',
@@ -164,7 +175,6 @@ class BookingService extends ServiceListWidget {
 				'description'    => esc_html__( 'Columns for the Nayar service grid.', 'nayar-core' ),
 			]
 		);
-
 		$this->end_controls_section();
 	}
 
@@ -184,7 +194,16 @@ class BookingService extends ServiceListWidget {
 		parent::render();
 		$booking_markup = ob_get_clean();
 
-		$template = apply_filters( 'nayar_booking_service_template', 'view-1', $settings, $this );
+		switch ( ! empty( $settings['layout_style'] ) ? $settings['layout_style'] : 'layout-1' ) {
+			case 'layout-2':
+				$template = 'view-2';
+				break;
+			default:
+				$template = 'view-1';
+				break;
+		}
+
+		$template = apply_filters( 'nayar_booking_service_template', $template, $settings, $this );
 		$template = sanitize_file_name( $template );
 
 		if ( ! $template ) {
@@ -211,11 +230,13 @@ class BookingService extends ServiceListWidget {
 	private function get_wrapper_classes( $settings ) {
 		$layout  = ! empty( $settings['layout'] ) ? $settings['layout'] : 'grid';
 		$columns = ! empty( $settings['columns'] ) ? $settings['columns'] : '3';
+		$style   = ! empty( $settings['layout_style'] ) ? $settings['layout_style'] : 'layout-1';
 
 		$classes = [
 			'nayar-booking-service',
 			'nayar-booking-service--' . sanitize_html_class( $layout ),
 			'nayar-booking-service--col-' . sanitize_html_class( $columns ),
+			'nayar-booking-service--' . sanitize_html_class( $style ),
 		];
 
 		if ( ! empty( $settings['nayar_wrapper_class'] ) ) {

@@ -10,6 +10,8 @@ namespace RT\NayarCore\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
+use Elementor\Group_Control_Text_Stroke;
+use Elementor\Group_Control_Text_Shadow;
 use RT\NayarCore\Helper\Fns;
 use RT\NayarCore\Abstracts\ElementorBase;
 
@@ -26,6 +28,623 @@ class ServiceTab extends ElementorBase {
 	}
 
 	protected function register_controls() {
+
+		/* Section Title (same markup/style as RT Section Title > Layout 01) */
+		$this->start_controls_section(
+			'sec_section_title',
+			[
+				'label' => esc_html__( 'Section Title', 'nayar-core' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'show_section_title',
+			[
+				'label'     => esc_html__( 'Section Title', 'nayar-core' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'On', 'nayar-core' ),
+				'label_off' => esc_html__( 'Off', 'nayar-core' ),
+				'default'   => '',
+			]
+		);
+
+		$this->add_control(
+			'st_top_sub_title',
+			[
+				'label'       => esc_html__( 'Top Sub Title', 'nayar-core' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'default'     => esc_html__( 'Why Choose Our About', 'nayar-core' ),
+				'condition'   => [
+					'show_section_title' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_title',
+			[
+				'label'       => esc_html__( 'Main Title', 'nayar-core' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 4,
+				'default'     => esc_html__( 'Welcome To Our Nayar', 'nayar-core' ),
+				'description' => esc_html__( 'If you would like to use different color then separate word by <span>.', 'nayar-core' ),
+				'condition'   => [
+					'show_section_title' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_description',
+			[
+				'label'     => esc_html__( 'Description', 'nayar-core' ),
+				'type'      => Controls_Manager::WYSIWYG,
+				'default'   => esc_html__( 'Manage and streamline operations across multiple locations, sales channels, and employees to improve efficiency and your bottom line.', 'nayar-core' ),
+				'condition' => [
+					'show_section_title' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'st_alignment',
+			[
+				'label'     => esc_html__( 'Alignment', 'nayar-core' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'default'   => '',
+				'options'   => [
+					'left'   => [
+						'title' => esc_html__( 'Left', 'nayar-core' ),
+						'icon'  => 'eicon-text-align-left',
+					],
+					'center' => [
+						'title' => esc_html__( 'Center', 'nayar-core' ),
+						'icon'  => 'eicon-text-align-center',
+					],
+					'right'  => [
+						'title' => esc_html__( 'Right', 'nayar-core' ),
+						'icon'  => 'eicon-text-align-right',
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper' => 'text-align: {{VALUE}};',
+				],
+				'separator' => 'before',
+				'condition' => [
+					'show_section_title' => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		// Section Title > Main Title Settings
+		$this->start_controls_section(
+			'st_title_settings',
+			[
+				'label'     => esc_html__( 'Section Title Settings', 'nayar-core' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_section_title' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_title_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Color', 'nayar-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .main-title' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_title_color_two',
+			[
+				'type'        => Controls_Manager::COLOR,
+				'label'       => esc_html__( 'Color 2', 'nayar-core' ),
+				'description' => esc_html__( 'If you would like to use different color then separate word by <span> from main title.', 'nayar-core' ),
+				'selectors'   => [
+					'{{WRAPPER}} .section-title-wrapper .main-title span' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_title_gradient_change_display',
+			[
+				'label'        => esc_html__( 'Gradient Title', 'nayar-core' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Show', 'nayar-core' ),
+				'label_off'    => esc_html__( 'Hide', 'nayar-core' ),
+				'return_value' => 'title-gradient',
+				'default'      => '',
+			]
+		);
+
+		$this->add_control(
+			'st_title_gradient_animation',
+			[
+				'label'     => esc_html__( 'Title Animation', 'nayar-core' ),
+				'type'      => Controls_Manager::SELECT2,
+				'options'   => [
+					'default-animation'        => esc_html__( 'Default', 'nayar-core' ),
+					'title-gradient-animation' => esc_html__( 'Animation', 'nayar-core' ),
+				],
+				'default'   => 'title-gradient-animation',
+				'condition' => [
+					'st_title_gradient_change_display' => 'title-gradient',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name'      => 'st_title_gradient_color',
+				'types'     => [ 'gradient' ],
+				'selector'  => '{{WRAPPER}} .section-title-wrapper .title-gradient',
+				'condition' => [
+					'st_title_gradient_change_display' => 'title-gradient',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'st_title_typo',
+				'label'    => esc_html__( 'Typo', 'nayar-core' ),
+				'selector' => '{{WRAPPER}} .section-title-wrapper .main-title',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'st_title_span_typo',
+				'label'    => esc_html__( 'Typo 2', 'nayar-core' ),
+				'selector' => '{{WRAPPER}} .section-title-wrapper .main-title span',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Text_Stroke::get_type(),
+			[
+				'name'     => 'st_text_stroke',
+				'selector' => '{{WRAPPER}} .section-title-wrapper .main-title',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Text_Shadow::get_type(),
+			[
+				'name'     => 'st_text_shadow',
+				'selector' => '{{WRAPPER}} .section-title-wrapper .main-title',
+			]
+		);
+
+		$this->add_responsive_control(
+			'st_heading_margin',
+			[
+				'label'      => esc_html__( 'Margin', 'nayar-core' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .section-title-wrapper .main-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_title_image_aline',
+			[
+				'label'   => esc_html__( 'Title Inline Image Align', 'nayar-core' ),
+				'type'    => Controls_Manager::SELECT2,
+				'options' => [
+					'baseline' => esc_html__( 'Baseline', 'nayar-core' ),
+					'middle'   => esc_html__( 'Middle', 'nayar-core' ),
+					'bottom'   => esc_html__( 'Bottom', 'nayar-core' ),
+				],
+				'default' => 'middle',
+			]
+		);
+
+		$this->add_control(
+			'st_main_title_tag',
+			[
+				'label'   => esc_html__( 'Main Title Tag', 'nayar-core' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h2',
+				'options' => [
+					'h1'   => esc_html__( 'H1', 'nayar-core' ),
+					'h2'   => esc_html__( 'H2', 'nayar-core' ),
+					'h3'   => esc_html__( 'H3', 'nayar-core' ),
+					'h4'   => esc_html__( 'H4', 'nayar-core' ),
+					'h5'   => esc_html__( 'H5', 'nayar-core' ),
+					'h6'   => esc_html__( 'H6', 'nayar-core' ),
+					'span' => esc_html__( 'Span', 'nayar-core' ),
+					'div'  => esc_html__( 'Div', 'nayar-core' ),
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		// Section Title > Sub Title Settings
+		$this->start_controls_section(
+			'st_top_title_settings',
+			[
+				'label'     => esc_html__( 'Section Sub Title Settings', 'nayar-core' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_section_title' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_sub_title_style',
+			[
+				'label'   => esc_html__( 'Sub Title Style', 'nayar-core' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'default',
+				'options' => [
+					'default'          => esc_html__( 'Default', 'nayar-core' ),
+					'left-right-shape' => esc_html__( 'Sub Title Shape', 'nayar-core' ),
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_top_title_icon_type',
+			[
+				'label'   => esc_html__( 'Icon Type', 'nayar-core' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'icon',
+				'options' => [
+					'icon'  => esc_html__( 'Icon', 'nayar-core' ),
+					'image' => esc_html__( 'Image', 'nayar-core' ),
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_top_title_icon',
+			[
+				'label'     => esc_html__( 'Choose Icons', 'nayar-core' ),
+				'type'      => Controls_Manager::ICON,
+				'include'   => [
+					'icon-rt-arrow-right-1',
+					'icon-rt-correct',
+					'icon-rt-arrow-vector',
+					'icon-rt-chevron-right',
+				],
+				'default'   => '',
+				'condition' => [
+					'st_top_title_icon_type' => 'icon',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_top_title_image',
+			[
+				'label'     => esc_html__( 'Choose Image', 'nayar-core' ),
+				'type'      => Controls_Manager::MEDIA,
+				'default'   => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+				'condition' => [
+					'st_top_title_icon_type' => 'image',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_icon_position',
+			[
+				'label'      => esc_html__( 'Icon Position', 'nayar-core' ),
+				'type'       => Controls_Manager::SELECT,
+				'default'    => 'left',
+				'options'    => [
+					'left'  => esc_html__( 'Left', 'nayar-core' ),
+					'right' => esc_html__( 'Right', 'nayar-core' ),
+					'both'  => esc_html__( 'Both', 'nayar-core' ),
+				],
+				'conditions' => [
+					'relation' => 'or',
+					'terms'    => [
+						[
+							'name'     => 'st_top_title_icon_type',
+							'operator' => '==',
+							'value'    => 'image',
+						],
+						[
+							'name'     => 'st_top_title_icon',
+							'operator' => '!=',
+							'value'    => '',
+						],
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_top_title_right_icon_type',
+			[
+				'label'     => esc_html__( 'Right Icon Type', 'nayar-core' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'icon',
+				'options'   => [
+					'icon'  => esc_html__( 'Icon', 'nayar-core' ),
+					'image' => esc_html__( 'Image', 'nayar-core' ),
+				],
+				'separator' => 'before',
+				'condition' => [
+					'st_icon_position' => [ 'right', 'both' ],
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_top_title_right_icon',
+			[
+				'label'       => esc_html__( 'Right Icon', 'nayar-core' ),
+				'type'        => Controls_Manager::ICON,
+				'include'     => [
+					'icon-rt-arrow-right-1',
+					'icon-rt-correct',
+					'icon-rt-arrow-vector',
+					'icon-rt-chevron-right',
+				],
+				'default'     => '',
+				'description' => esc_html__( 'Leave empty to use the left icon.', 'nayar-core' ),
+				'condition'   => [
+					'st_icon_position'             => [ 'right', 'both' ],
+					'st_top_title_right_icon_type' => 'icon',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_top_title_right_image',
+			[
+				'label'     => esc_html__( 'Right Image', 'nayar-core' ),
+				'type'      => Controls_Manager::MEDIA,
+				'default'   => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+				'condition' => [
+					'st_icon_position'             => [ 'right', 'both' ],
+					'st_top_title_right_icon_type' => 'image',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'st_top_title_right_image_width',
+			[
+				'label'      => esc_html__( 'Right Image Width', 'nayar-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range'      => [
+					'px' => [
+						'min'  => 5,
+						'max'  => 200,
+						'step' => 1,
+					],
+					'%'  => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title .sub-title-image-right' => 'width: {{SIZE}}{{UNIT}}; height: auto;',
+				],
+				'condition'  => [
+					'st_icon_position'             => [ 'right', 'both' ],
+					'st_top_title_right_icon_type' => 'image',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_top_title_icon_size',
+			[
+				'label'      => esc_html__( 'Icon Size', 'nayar-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min'  => 5,
+						'max'  => 40,
+						'step' => 1,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title i' => 'font-size: {{SIZE}}{{UNIT}};',
+				],
+				'condition'  => [
+					'st_top_title_icon_type' => 'icon',
+					'st_top_title_icon!'     => '',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'st_top_title_image_width',
+			[
+				'label'      => esc_html__( 'Image Width', 'nayar-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range'      => [
+					'px' => [
+						'min'  => 5,
+						'max'  => 200,
+						'step' => 1,
+					],
+					'%'  => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title .sub-title-image' => 'width: {{SIZE}}{{UNIT}}; height: auto;',
+				],
+				'condition'  => [
+					'st_top_title_icon_type' => 'image',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_top_title_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Color', 'nayar-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_top_title_icon_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Icon Color', 'nayar-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title i'        => 'color: {{VALUE}}',
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title svg path' => 'fill: {{VALUE}}',
+				],
+				'condition' => [
+					'st_top_title_icon_type' => 'icon',
+					'st_top_title_icon!'     => '',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Background::get_type(),
+			[
+				'name'           => 'st_top_title_bg_color',
+				'label'          => esc_html__( 'Background', 'nayar-core' ),
+				'types'          => [ 'classic', 'gradient' ],
+				'fields_options' => [
+					'background' => [
+						'label' => esc_html__( 'Background', 'nayar-core' ),
+					],
+				],
+				'selector'       => '{{WRAPPER}} .section-title-wrapper .top-sub-title',
+				'condition'      => [
+					'st_sub_title_style!' => 'default',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'st_top_title_typo',
+				'label'    => esc_html__( 'Typography', 'nayar-core' ),
+				'selector' => '{{WRAPPER}} .section-title-wrapper .top-sub-title',
+			]
+		);
+
+		$this->add_responsive_control(
+			'st_top_title_padding',
+			[
+				'label'      => esc_html__( 'Padding', 'nayar-core' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+				'condition'  => [
+					'st_sub_title_style!' => 'default',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'st_top_title_margin',
+			[
+				'label'      => esc_html__( 'Margin', 'nayar-core' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .section-title-wrapper .top-sub-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		// Section Title > Description Settings
+		$this->start_controls_section(
+			'st_description_settings',
+			[
+				'label'     => esc_html__( 'Section Description Settings', 'nayar-core' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_section_title' => 'yes',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'st_description_typo',
+				'label'    => esc_html__( 'Typography', 'nayar-core' ),
+				'selector' => '{{WRAPPER}} .section-title-wrapper .description',
+			]
+		);
+
+		$this->add_control(
+			'st_description_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Color', 'nayar-core' ),
+				'selectors' => [
+					'{{WRAPPER}} .section-title-wrapper .description' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'st_description_margin',
+			[
+				'label'      => esc_html__( 'Margin', 'nayar-core' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ '%', 'px' ],
+				'selectors'  => [
+					'{{WRAPPER}} .section-title-wrapper .description p' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'st_wrapper_margin',
+			[
+				'label'      => esc_html__( 'Section Title Wrapper Margin', 'nayar-core' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ '%', 'px' ],
+				'selectors'  => [
+					'{{WRAPPER}} .section-title-wrapper' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+				'separator'  => 'before',
+			]
+		);
+
+		$this->end_controls_section();
+
 
 		$this->start_controls_section(
 			'rt_service_tab',
@@ -245,6 +864,17 @@ class ServiceTab extends ElementorBase {
 				],
 			]
 		);
+        $this->add_responsive_control(
+            'rt_image_margin',
+            [
+                'label'      => esc_html__( 'Margin', 'nayar-core' ),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%' ],
+                'selectors'  => [
+                    '{{WRAPPER}} .service-tab .image-items' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+                ],
+            ]
+        );
 		$this->end_controls_section();
 
 

@@ -190,6 +190,14 @@ class LogoBrand extends ElementorBase {
 			]
 		);
 
+        $this->add_group_control(
+            \Elementor\Group_Control_Border::get_type(),
+            [
+                'name' => 'logo_border',
+                'selector' => '{{WRAPPER}} .rt-logo-brand .logo-box',
+            ]
+        );
+
 		$this->end_controls_section();
 
 		// Navigation Settings

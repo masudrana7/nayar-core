@@ -64,7 +64,7 @@ class Counter extends ElementorBase {
                     'url' => \Elementor\Utils::get_placeholder_image_src(),
                 ],
                 'condition' => [
-                    'layout' => ['layout-5'],
+                    'layout' => ['layout-5', 'layout-4'],
                 ],
             ]
         );
@@ -432,7 +432,7 @@ class Counter extends ElementorBase {
 				'label'     => esc_html__( 'Image', 'nayar-core' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
-					'layout' => 'layout-5',
+					'layout' => ['layout-5', 'layout-4'],
 				],
 			]
 		);
@@ -459,6 +459,18 @@ class Counter extends ElementorBase {
 				],
 			]
 		);
+
+        $this->add_responsive_control(
+            'image_margin',
+            [
+                'label'              => __( 'Margin', 'nayar-core' ),
+                'type'               => Controls_Manager::DIMENSIONS,
+                'size_units'         => [ 'px' ],
+                'selectors'          => [
+                    '{{WRAPPER}} .rt-counter-layout .counter-image' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+                ],
+            ]
+        );
 
 		$this->end_controls_section();
 		// Counter number setting
