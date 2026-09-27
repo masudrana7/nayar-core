@@ -59,6 +59,11 @@ $nayar_currency = function_exists( 'get_rtrb_currency_symbol' ) ? get_rtrb_curre
  */
 $nayar_button_text = ! empty( $settings['button_text'] ) ? $settings['button_text'] : esc_html__( 'Book Now', 'nayar-core' );
 
+/**
+ * Max words for the service description — 0 hides it.
+ */
+$nayar_desc_limit = isset( $settings['nayar_description_limit'] ) && '' !== $settings['nayar_description_limit'] ? absint( $settings['nayar_description_limit'] ) : 20;
+
 if ( empty( $nayar_services ) ) {
     // Nothing to render from the database — keep the plugin output.
     ?>
@@ -125,8 +130,6 @@ if ( ! defined( 'NAYAR_BOOKING_SERVICE_ASSETS' ) ) {
 
                 mount.innerHTML = '';
 
-                // The Radius Booking site bundle observes the DOM and mounts any
-                // `.rt-radius-booking-form` node that appears.
                 var form = document.createElement('div');
                 form.className = 'rtrb-root rt-radius-booking-form has-modal';
                 form.setAttribute('data-service-id', button.getAttribute('data-service-id') || '');
@@ -150,13 +153,22 @@ if ( ! defined( 'NAYAR_BOOKING_SERVICE_ASSETS' ) ) {
             $nayar_image = isset( $nayar_service->picture_full_path ) ? $nayar_service->picture_full_path : '';
             $nayar_price = isset( $nayar_service->price ) ? (float) $nayar_service->price : 0;
             $nayar_price = $nayar_currency . number_format_i18n( $nayar_price, 2 );
+            $nayar_desc  = isset( $nayar_service->description ) && $nayar_desc_limit ? wp_trim_words( wp_strip_all_tags( $nayar_service->description ), $nayar_desc_limit ) : '';
             ?>
             <div class="booking-service-item">
                 <?php if ( $nayar_image ) : ?>
-                    <img class="booking-img" src="<?php echo esc_url( $nayar_image ); ?>" alt="<?php echo esc_attr( $nayar_title ); ?>" />
+                    <div class="booking-img-wrapper">
+                        <img class="booking-img" src="<?php echo esc_url( $nayar_image ); ?>" alt="<?php echo esc_attr( $nayar_title ); ?>" />
+                    </div>
                 <?php endif; ?>
                 <?php if ( $nayar_price ) : ?>
                     <span class="booking-price"><?php echo esc_html( $nayar_price ); ?></span>
+                <?php endif; ?>
+                <?php if ( $nayar_title ) : ?>
+                    <h3 class="booking-title"><?php echo esc_html( $nayar_title ); ?></h3>
+                <?php endif; ?>
+                <?php if ( $nayar_desc ) : ?>
+                    <p class="booking-desc"><?php echo esc_html( $nayar_desc ); ?></p>
                 <?php endif; ?>
                 <?php if ( $nayar_title && $nayar_id ) : ?>
                     <div class="rt-button">

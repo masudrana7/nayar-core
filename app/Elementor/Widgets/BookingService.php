@@ -143,6 +143,20 @@ class BookingService extends ServiceListWidget {
         );
 
 		$this->add_control(
+			'nayar_description_limit',
+			[
+				'label'       => esc_html__( 'Description Max Words', 'nayar-core' ),
+				'type'        => Controls_Manager::NUMBER,
+				'min'         => 0,
+				'default'     => 20,
+				'description' => esc_html__( '0 hides the description.', 'nayar-core' ),
+				'condition'   => [
+					'layout_style' => 'layout-2',
+				],
+			]
+		);
+
+		$this->add_control(
 			'nayar_wrapper_class',
 			[
 				'label'       => esc_html__( 'Extra Wrapper Class', 'nayar-core' ),
