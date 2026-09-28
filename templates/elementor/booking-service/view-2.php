@@ -156,14 +156,19 @@ if ( ! defined( 'NAYAR_BOOKING_SERVICE_ASSETS' ) ) {
             $nayar_desc  = isset( $nayar_service->description ) && $nayar_desc_limit ? wp_trim_words( wp_strip_all_tags( $nayar_service->description ), $nayar_desc_limit ) : '';
             ?>
             <div class="booking-service-item">
-                <?php if ( $nayar_image ) : ?>
-                    <div class="booking-img-wrapper">
-                        <img class="booking-img" src="<?php echo esc_url( $nayar_image ); ?>" alt="<?php echo esc_attr( $nayar_title ); ?>" />
-                    </div>
+                <?php if ( $nayar_image || $nayar_price ) : ?>
+                <div class="booking-img-inner">
+                        <div class="booking-img-wrapper">
+                        <?php if ( $nayar_image ) : ?>
+                            <img class="booking-img" src="<?php echo esc_url( $nayar_image ); ?>" alt="<?php echo esc_attr( $nayar_title ); ?>" />
+                        <?php endif; ?>
+                        </div>
+                    <?php if ( $nayar_price ) : ?>
+                        <span class="booking-price"><?php echo esc_html( $nayar_price ); ?></span>
+                    <?php endif; ?>
+                </div>
                 <?php endif; ?>
-                <?php if ( $nayar_price ) : ?>
-                    <span class="booking-price"><?php echo esc_html( $nayar_price ); ?></span>
-                <?php endif; ?>
+
                 <?php if ( $nayar_title ) : ?>
                     <h3 class="booking-title"><?php echo esc_html( $nayar_title ); ?></h3>
                 <?php endif; ?>
