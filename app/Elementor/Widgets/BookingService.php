@@ -137,6 +137,7 @@ class BookingService extends ServiceListWidget {
                 'options'   => [
                     'layout-1' => __( 'Layout 01', 'nayar-core' ),
                     'layout-2' => __( 'Layout 02', 'nayar-core' ),
+                    'layout-3' => __( 'Layout 03', 'nayar-core' ),
                 ],
                 'default'     => 'layout-1',
             ]
@@ -156,7 +157,21 @@ class BookingService extends ServiceListWidget {
 			]
 		);
 
-		$this->add_control(
+        $this->add_control(
+            'nayar_button_text',
+            [
+                'label'       => esc_html__( 'Button Text', 'nayar-core' ),
+                'type'        => Controls_Manager::TEXT,
+                'default'     => esc_html__( 'Book Your Slot', 'nayar-core' ),
+                'label_block' => true,
+                'condition'   => [
+                    'layout_style' => 'layout-2',
+                ],
+            ]
+        );
+
+
+        $this->add_control(
 			'nayar_wrapper_class',
 			[
 				'label'       => esc_html__( 'Extra Wrapper Class', 'nayar-core' ),

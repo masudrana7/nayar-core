@@ -45,12 +45,37 @@ $comments_text   = sprintf( _n( 'Comment: %s', 'Comments: %s', $comments_number,
 	<?php } ?>
 	<div class="entry-wrapper">
 		<header class="entry-header">
-			<?php if ( $cat_visibility ) { ?>
-                <div class="separate-meta title-above-meta">
-					<?php echo wp_kses_post( nayar_posted_in() ); ?>
+            <?php if ( $has_entry_meta ) { ?>
+                <div class="rt-post-meta">
+                    <ul class="entry-meta">
+                        <?php if ( $date_visibility ) { ?>
+                            <li class="rt-date"><i class="icon-rt-calender-4"></i><?php echo wp_kses_post( nayar_posted_on() ); ?></li>
+                        <?php } ?>
+                        <?php if ( $cat_visibility ) { ?>
+                            <li><?php echo wp_kses_post( nayar_posted_in() ); ?></li>
+                        <?php } ?>
+                    </ul>
                 </div>
-			<?php } ?>
+            <?php } ?>
             <<?php echo esc_attr( $title_tag ) ?> class="entry-title default-max-width"><a href="<?php the_permalink();?>"><?php nayar_html( $title, 'allow_title' ); ?></a></<?php echo esc_attr( $title_tag ) ?>>
+
+            <?php if ( $has_entry_meta ) { ?>
+                <div class="rt-post-meta">
+                    <ul class="entry-meta">
+                        <?php if ( $author_visibility ) { ?>
+                            <li class="rt-user"><?php echo wp_kses_post( nayar_posted_by(esc_html__( 'by ', 'nayar-core' )) ); ?></li>
+                        <?php } if ( $cat_visibility && empty( has_post_thumbnail() ) ) { ?>
+                            <li><?php echo wp_kses_post( nayar_posted_in() ); ?></li>
+                        <?php } if ( $comment_visibility ) { ?>
+                            <li class="rt-comment"><a href="<?php echo esc_url( get_comments_link( get_the_ID() ) ); ?>"><?php echo wp_kses_post( $comments_text );?></a></li>
+                        <?php } if ( $reading_visibility ) { ?>
+                            <li><?php echo wp_kses_post( nayar_reading_time() ); ?></li>
+                        <?php } if ( $views_visibility ) { ?>
+                            <li><?php echo wp_kses_post( rt_post_views() ); ?></li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            <?php } ?>
 
             <?php if( 'visible' === $content_visibility ) { ?>
                 <div class="entry-content">
@@ -58,28 +83,12 @@ $comments_text   = sprintf( _n( 'Comment: %s', 'Comments: %s', $comments_number,
                 </div>
             <?php } ?>
 
-            <?php if ( $has_entry_meta ) { ?>
-				<div class="rt-post-meta">
-					<ul class="entry-meta">
-						<?php if ( $author_visibility ) { ?>
-							<li><i class="icon-rt-user-1"></i><?php echo wp_kses_post( nayar_posted_by(esc_html__( 'by ', 'nayar-core' )) ); ?></li>
-						<?php } if ( $date_visibility ) { ?>
-							<li><i class="icon-rt-calender-4"></i><?php echo wp_kses_post( nayar_posted_on() ); ?></li>
-						<?php } if ( $comment_visibility ) { ?>
-							<li><i class="icon-rt-comments"></i><a href="<?php echo esc_url( get_comments_link( get_the_ID() ) ); ?>"><?php echo wp_kses( $comments_text , 'allowed_html' );?></a></li>
-						<?php } if ( $reading_visibility ) { ?>
-							<li><i class="icon-rt-clock"></i><?php echo wp_kses_post( nayar_reading_time() ); ?></li>
-						<?php } if ( $views_visibility ) { ?>
-							<li><i class="icon-rt-eye"></i><?php echo wp_kses_post( rt_post_views() ); ?></li>
-						<?php } ?>
-					</ul>
-				</div>
-			<?php } ?>
 		</header>
 		<?php if( 'visible' === $readmore_visibility ) { ?>
 			<div class="rt-button entry-footer">
 				<a class="btn button-2" href="<?php the_permalink();?>">
-					<?php echo esc_html( $readmore_text );?><i class="icon-rt-arrow-right-1"></i>
+					<?php echo esc_html( $readmore_text );?>
+                    <span class="btn-icon"><i class="icon-rt-arrow-right-1"></i></span>
 				</a>
 			</div>
 		<?php } ?>

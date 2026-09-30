@@ -24,7 +24,6 @@ class VideoIcon extends ElementorBase {
 		$this->rt_base = 'rt-video-icon';
 		parent::__construct( $data, $args );
 	}
-
 	protected function register_controls() {
 		$this->start_controls_section(
 			'sec_general',
@@ -508,6 +507,13 @@ class VideoIcon extends ElementorBase {
 				],
 			]
 		);
+        $this->add_group_control(
+            \Elementor\Group_Control_Border::get_type(),
+            [
+                'name' => 'box_border',
+                'selector' => '{{WRAPPER}} .rt-video-icon',
+            ]
+        );
 
 		$this->end_controls_section();
 	}

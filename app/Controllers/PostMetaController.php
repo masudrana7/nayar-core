@@ -206,6 +206,7 @@ class PostMetaController {
 					'default' => __( 'Default from customizer', 'nayar-core' ),
 					'1'       => __( 'Layout 1', 'nayar-core' ),
 					'2'       => __( 'Layout 2', 'nayar-core' ),
+					'3'       => __( 'Layout 3', 'nayar-core' ),
 				],
 				'default' => 'default',
 			],

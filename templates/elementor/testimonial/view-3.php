@@ -35,10 +35,6 @@ use Elementor\Icons_Manager;
 	                <?php if ( $quote_display ) { ?><span class="quote"><?php Icons_Manager::render_icon( $quote_icon ); ?></span><?php } ?>
                     <div class="slider-item">
                         <div class="testimonial-content">
-                            <<?php echo esc_attr( $title_tag ) ?> class="rt-title"><?php echo esc_html( $item['name'] ); ?></<?php echo esc_attr( $title_tag ) ?>>
-                            <?php if ( $item['designation'] && $designation_display ) { ?>
-                                <div class="rt-subtitle"><?php echo esc_html( $item['designation'] ); ?></div>
-                            <?php } ?>
                             <?php if ( $rating_display ) { ?>
                                 <ul class="item-rating">
                                     <?php for ( $i=0; $i <=4 ; $i++ ) {
@@ -54,6 +50,10 @@ use Elementor\Icons_Manager;
                             <div class="rt-content">
                                 <p><?php echo esc_html( $item['content'] ); ?></p>
                             </div>
+                            <<?php echo esc_attr( $title_tag ) ?> class="rt-title"><?php echo esc_html( $item['name'] ); ?></<?php echo esc_attr( $title_tag ) ?>>
+                            <?php if ( $item['designation'] && $designation_display ) { ?>
+                                <div class="rt-subtitle"><?php echo esc_html( $item['designation'] ); ?></div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

@@ -225,6 +225,63 @@ class MoveShape extends ElementorBase {
 			]
 		);
 
+        $this->add_responsive_control(
+            'shape_wrap_height',
+            [
+                'label' => __( 'Circle Shape Height', 'nayar-core' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => [ 'px', '%', 'vh' ],
+                'range'      => [
+                    'px' => [
+                        'min'  => 0,
+                        'max'  => 1000,
+                        'step' => 1,
+                    ],
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                    'vh' => [
+                        'min'  => 0,
+                        'max'  => 100,
+                        'step' => 1,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .about-shape' => 'height: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+
+        $this->add_responsive_control(
+            'shape_wrap_width',
+            [
+                'label' => __( 'Circle Shape Width', 'nayar-core' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => [ 'px', '%', 'vh' ],
+                'range'      => [
+                    'px' => [
+                        'min'  => 0,
+                        'max'  => 1000,
+                        'step' => 1,
+                    ],
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                    'vh' => [
+                        'min'  => 0,
+                        'max'  => 100,
+                        'step' => 1,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .about-shape' => 'width: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
 		$this->end_controls_section();
 
 		//Moving Text Style

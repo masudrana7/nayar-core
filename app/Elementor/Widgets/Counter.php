@@ -318,17 +318,10 @@ class Counter extends ElementorBase {
 			'title_space',
 			[
 				'label'      => __( 'Space', 'nayar-core' ),
-				'type'       => Controls_Manager::SLIDER,
+                'type'               => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px' ],
-				'range'      => [
-					'px' => [
-						'min'  => 0,
-						'max'  => 100,
-						'step' => 1,
-					],
-				],
 				'selectors'  => [
-					'{{WRAPPER}} .rt-counter-layout .rt-counter-box .counter-label' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rt-counter-layout .rt-counter-box .counter-label' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				],
 			]
 		);
@@ -541,24 +534,17 @@ class Counter extends ElementorBase {
 			]
 		);
 
-		$this->add_control(
-			'counter_space',
-			[
-				'label'      => __( 'Counter Space', 'nayar-core' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px' ],
-				'range'      => [
-					'px' => [
-						'min'  => 0,
-						'max'  => 100,
-						'step' => 1,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .rt-counter-layout .rt-counter-box .counter-number' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
+        $this->add_control(
+            'counter_space',
+            [
+                'label'      => __( 'Space', 'nayar-core' ),
+                'type'               => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px' ],
+                'selectors'  => [
+                    '{{WRAPPER}} .rt-counter-layout .rt-counter-box .counter-number' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+                ],
+            ]
+        );
 
         $this->add_group_control(
             Group_Control_Typography::get_type(),
