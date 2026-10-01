@@ -30,5 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php do_action( 'rt_hf_header_markup' ); ?>
 
+    <div id="smooth-wrapper">
+    <div id="smooth-content">
     <div id="content" class="site-content">
 		<?php get_template_part( 'views/content', 'banner' ); ?>

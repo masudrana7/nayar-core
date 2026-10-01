@@ -96,7 +96,7 @@ $animation_headline = ( $animation_headline_display == 'yes' ) ? 'rt-animated-he
 		<!--Main Title-->
 		<?php if ( $title ): ?>
         <div class="<?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="400ms" data-wow-duration="1200ms">
-            <<?php echo esc_attr( $main_title_tag ) ?> class="main-title <?php echo esc_attr( $title_gradient_animation );?> <?php if( $title_gradient_change_display ) { ?><?php echo esc_attr( $title_gradient_change_display );?><?php } ?> <?php if( $title_line_shape ) { ?><?php echo esc_attr( $title_line_shape );?><?php } ?> <?php echo esc_attr( $title_image_aline );?> <?php if( !empty($alignment) ) { ?><?php echo esc_attr( $alignment );?><?php } ?>"><?php nayar_html( $title, 'allow_title' );?>
+            <<?php echo esc_attr( $main_title_tag ) ?> class="rt-split-word main-title <?php echo esc_attr( $title_gradient_animation );?> <?php if( $title_gradient_change_display ) { ?><?php echo esc_attr( $title_gradient_change_display );?><?php } ?> <?php if( $title_line_shape ) { ?><?php echo esc_attr( $title_line_shape );?><?php } ?> <?php echo esc_attr( $title_image_aline );?> <?php if( !empty($alignment) ) { ?><?php echo esc_attr( $alignment );?><?php } ?>"><?php nayar_html( $title, 'allow_title' );?>
                 <?php if( !empty( $animation_headline ) ) { ?>
                     <div class="ah-words-wrapper">
                         <?php nayar_html( $headline_title, 'allow_title' );?>

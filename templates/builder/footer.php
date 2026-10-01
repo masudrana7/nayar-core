@@ -18,6 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php do_action( 'rt_hf_footer_markup' ); ?>
 
+</div><!-- #smooth-content -->
+</div><!-- #smooth-wrapper -->
+
 </div><!-- #page -->
 
 <?php wp_footer(); ?>
