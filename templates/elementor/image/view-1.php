@@ -54,7 +54,7 @@ $overlay_animation = ( $image_overlay_animation == 'yes' ) ? 'has-animation' : '
 <div class="rt-image-layout rt-loop-animation-<?php echo esc_attr($loop_animation); ?> rt-image-<?php echo esc_attr( $layout ) ?> <?php if( !empty( $alignment ) ) { ?><?php echo esc_attr( $alignment ) ?><?php } ?>">
 
 	<?php if( $layout == 'layout-1' ) { ?>
-        <div class="rt-image <?php echo esc_attr( $overlay_animation );?> <?php echo esc_attr( $animations );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $delay );?>ms" data-wow-duration="<?php echo esc_attr( $durations );?>ms">
+        <div class="rt-image rt-image-animation <?php echo esc_attr( $overlay_animation );?> <?php echo esc_attr( $animations );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $delay );?>ms" data-wow-duration="<?php echo esc_attr( $durations );?>ms">
             <div data-parallax='{"<?php echo esc_attr( $x_range );?>" : <?php echo esc_attr( $range_one );?>, "<?php echo esc_attr( $y_range );?>" : <?php echo esc_attr( $range_two );?>}'>
 	            <?php if( $attr ) : ?>
                 <a <?php echo esc_attr($attr) ?> aria-label="image">

@@ -44,7 +44,7 @@ $animation_headline = ( $animation_headline_display == 'yes' ) ? 'rt-animated-he
 		<!--Top Sub Title-->
 		<?php if ( $top_sub_title ): ?>
 			<div class="top-sub-title-wrap <?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="200ms" data-wow-duration="1200ms">
-                <span class="top-sub-title <?php echo esc_attr( $sub_title_style );?>">
+                <span class="top-sub-title rt-bottom-top-animation <?php echo esc_attr( $sub_title_style );?>">
                     <?php
                     $sub_icon_type  = ! empty( $top_title_icon_type ) ? $top_title_icon_type : 'icon';
                     $sub_image_html = '';
