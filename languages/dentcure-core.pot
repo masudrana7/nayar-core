@@ -1710,60 +1710,60 @@ msgid "Div"
 msgstr ""
 
 #: app/Controllers/PostMetaController.php:413
-msgid "Doctor Address"
+msgid "Team Address"
 msgstr ""
 
 #: app/Controllers/PostTypeController.php:74
-msgid "Doctor Categories"
+msgid "Team Categories"
 msgstr ""
 
 #: app/Controllers/PostTypeController.php:73
-msgid "Doctor Category"
+msgid "Team Category"
 msgstr ""
 
 #: app/Controllers/PostMetaController.php:110
-msgid "Doctor Contact"
+msgid "Team Contact"
 msgstr ""
 
 #: app/Controllers/PostMetaController.php:383
-msgid "Doctor Designation"
+msgid "Team Designation"
 msgstr ""
 
 #: app/Controllers/PostMetaController.php:450
-msgid "Doctor Education Info"
+msgid "Team Education Info"
 msgstr ""
 
 #: app/Controllers/PostMetaController.php:407
-msgid "Doctor Email"
+msgid "Team Email"
 msgstr ""
 
 #: app/Controllers/PostMetaController.php:63
-msgid "Doctor Info"
+msgid "Team Info"
 msgstr ""
 
 #: app/Controllers/PostMetaController.php:389
-msgid "Doctor Phone"
+msgid "Team Phone"
 msgstr ""
 
 #: app/Controllers/PostMetaController.php:86
 #: app/Controllers/PostMetaController.php:98
-msgid "Doctor Skill"
+msgid "Team Skill"
 msgstr ""
 
 #: app/Controllers/PostMetaController.php:481
-msgid "Doctor Skill Info"
+msgid "Team Skill Info"
 msgstr ""
 
 #: app/Controllers/PostMetaController.php:74
-msgid "Doctor Social"
+msgid "Team Social"
 msgstr ""
 
 #: app/Controllers/PostMetaController.php:401
-msgid "Doctor Website"
+msgid "Team Website"
 msgstr ""
 
 #: app/Controllers/PostTypeController.php:44
-msgid "Doctors Custom Post Type"
+msgid "Teams Custom Post Type"
 msgstr ""
 
 #: app/Api/Widgets/Download_Widget.php:50

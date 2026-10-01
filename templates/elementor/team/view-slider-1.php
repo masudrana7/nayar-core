@@ -106,6 +106,9 @@ $query = new WP_Query( $args );
                                             <p><?php nayar_html( $content , false ); ?></p>
                                     <?php } ?>
                                 </div>
+                                <div class="btn-icon">
+                                    <i class="icon-rt-arrow-right-1"></i>
+                                </div>
                             </div>
                         </div>
                     </div>

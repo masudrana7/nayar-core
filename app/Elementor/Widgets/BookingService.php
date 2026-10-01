@@ -152,7 +152,7 @@ class BookingService extends ServiceListWidget {
 				'default'     => 20,
 				'description' => esc_html__( '0 hides the description.', 'nayar-core' ),
 				'condition'   => [
-					'layout_style' => 'layout-2',
+					'layout_style' => [ 'layout-2', 'layout-3' ],
 				],
 			]
 		);
@@ -165,7 +165,7 @@ class BookingService extends ServiceListWidget {
                 'default'     => esc_html__( 'Book Your Slot', 'nayar-core' ),
                 'label_block' => true,
                 'condition'   => [
-                    'layout_style' => 'layout-2',
+                    'layout_style' => [ 'layout-2', 'layout-3' ],
                 ],
             ]
         );
@@ -226,6 +226,9 @@ class BookingService extends ServiceListWidget {
 		switch ( ! empty( $settings['layout_style'] ) ? $settings['layout_style'] : 'layout-1' ) {
 			case 'layout-2':
 				$template = 'view-2';
+				break;
+			case 'layout-3':
+				$template = 'view-3';
 				break;
 			default:
 				$template = 'view-1';

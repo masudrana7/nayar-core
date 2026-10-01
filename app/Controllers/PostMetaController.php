@@ -63,7 +63,7 @@ class PostMetaController {
 		//Team meta
 		$this->postmeta->add_meta_box(
 			"rt_team_info",
-			__( 'Doctor Info', 'nayar-core' ),
+			__( 'Team Info', 'nayar-core' ),
 			[ 'rt-team' ],
 			'',
 			'',
@@ -74,7 +74,7 @@ class PostMetaController {
 		);
 		$this->postmeta->add_meta_box(
 			"rt_team_social",
-			__( 'Doctor Social', 'nayar-core' ),
+			__( 'Team Social', 'nayar-core' ),
 			[ 'rt-team' ],
 			'',
 			'',
@@ -86,7 +86,7 @@ class PostMetaController {
 
 		$this->postmeta->add_meta_box(
 			"rt_team_education",
-			__( 'Doctor Skill', 'nayar-core' ),
+			__( 'Team Skill', 'nayar-core' ),
 			[ 'rt-team' ],
 			'',
 			'',
@@ -98,7 +98,7 @@ class PostMetaController {
 
 		$this->postmeta->add_meta_box(
 			"rt_team_skill",
-			__( 'Doctor Skill', 'nayar-core' ),
+			__( 'Team Skill', 'nayar-core' ),
 			[ 'rt-team' ],
 			'',
 			'',
@@ -110,7 +110,7 @@ class PostMetaController {
 
 		$this->postmeta->add_meta_box(
 			"rt_team_contact",
-			__( 'Doctor Contact', 'nayar-core' ),
+			__( 'Team Contact', 'nayar-core' ),
 			[ 'rt-team' ],
 			'',
 			'',
@@ -384,13 +384,13 @@ class PostMetaController {
 			),
 
 			'rt_team_designation' => [
-				'label'   => __( 'Doctor Designation', 'nayar-core' ),
+				'label'   => __( 'Team Designation', 'nayar-core' ),
 				'type'    => 'text',
 				'default' => '',
 			],
 
 			'rt_team_phone' => [
-				'label'   => __( 'Doctor Phone', 'nayar-core' ),
+				'label'   => __( 'Team Phone', 'nayar-core' ),
 				'type'    => 'text',
 				'default' => '',
 			],
@@ -402,19 +402,19 @@ class PostMetaController {
 			],
 
 			'rt_team_website' => [
-				'label'   => __( 'Doctor Website', 'nayar-core' ),
+				'label'   => __( 'Team Website', 'nayar-core' ),
 				'type'    => 'text',
 				'default' => '',
 			],
 
 			'rt_team_email' => [
-				'label'   => __( 'Doctor Email', 'nayar-core' ),
+				'label'   => __( 'Team Email', 'nayar-core' ),
 				'type'    => 'text',
 				'default' => '',
 			],
 
 			'rt_team_address' => [
-				'label'   => __( 'Doctor Address', 'nayar-core' ),
+				'label'   => __( 'Team Address', 'nayar-core' ),
 				'type'    => 'text',
 				'default' => '',
 			],
@@ -451,7 +451,7 @@ class PostMetaController {
 			),
 
 			'rt_team_education_info' => [
-				'label'   => __( 'Doctor Education Info', 'nayar-core' ),
+				'label'   => __( 'Team Education Info', 'nayar-core' ),
 				'type'    => 'textarea',
 			],
 
@@ -482,7 +482,7 @@ class PostMetaController {
 			),
 
 			'rt_team_skill_info' => [
-				'label'   => __( 'Doctor Skill Info', 'nayar-core' ),
+				'label'   => __( 'Team Skill Info', 'nayar-core' ),
 				'type'    => 'textarea',
 			],
 

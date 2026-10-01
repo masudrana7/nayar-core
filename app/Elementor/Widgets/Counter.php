@@ -416,6 +416,28 @@ class Counter extends ElementorBase {
 			]
 		);
 
+		$this->add_control(
+			'title_shape_position_leftrgiht',
+			[
+				'label'      => __( 'Shape Left/Right Position', 'nayar-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 500,
+						'step' => 1,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .title_shape_yes .counter-label:before' => 'left: {{SIZE}}{{UNIT}};',
+				],
+				'condition'   => [
+					'title_shape_display' => 'yes',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 
 		// Image style

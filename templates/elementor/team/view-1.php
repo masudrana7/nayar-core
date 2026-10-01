@@ -107,6 +107,9 @@ $col_class = "col-xl-{$col_xl} col-lg-{$col_lg} col-md-{$col_md} col-sm-{$col_sm
                                         <p><?php nayar_html( $content , false ); ?></p>
                                     <?php } ?>
                                 </div>
+                                <a href="<?php the_permalink();?>" class="btn-icon">
+                                    <i class="icon-rt-arrow-right-1"></i>
+                                </a>
                             </div>
                         </div>
                     </div>

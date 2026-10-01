@@ -38,13 +38,13 @@ class PostTypeController {
 			[
 				'id'            => 'rt-team',
 				'slug'          => get_theme_mod('rt_team_slug'),
-				'singular'      => 'Doctor',
-				'plural'        => 'Doctors',
+				'singular'      => 'Team',
+				'plural'        => 'Teams',
 				'menu_icon'     => 'dashicons-admin-customizer',
 				'menu_position' => 20,
 				'supports'      => [ 'title', 'editor', 'thumbnail', 'excerpt', 'author', 'comments' ],
 				'taxonomies'	=> ['post_tag'],
-				'description'   => __( 'Doctors Custom Post Type', 'nayar-core' ),
+				'description'   => __( 'Teams Custom Post Type', 'nayar-core' ),
 				'hierarchical'  => true
 			],
 			[
@@ -73,8 +73,8 @@ class PostTypeController {
 				'id'        => 'rt-team-category',
 				'post_type' => [ 'rt-team' ],
 				'slug'      => get_theme_mod('rt_team_cat_slug'),
-				'singular'  => __( 'Doctor Category', 'nayar-core' ),
-				'plural'    => __( 'Doctor Categories', 'nayar-core' ),
+				'singular'  => __( 'Team Category', 'nayar-core' ),
+				'plural'    => __( 'Team Categories', 'nayar-core' ),
 			],
 			[
 				'id'        => 'rt-project-category',

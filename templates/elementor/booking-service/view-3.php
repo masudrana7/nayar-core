@@ -142,7 +142,7 @@ if ( ! defined( 'NAYAR_BOOKING_SERVICE_ASSETS' ) ) {
     <?php
 }
 ?>
-<div class="<?php echo esc_attr( $wrapper_class ); ?> rt-custom-booking-service ttttttttttttttttttttt">
+<div class="<?php echo esc_attr( $wrapper_class ); ?> rt-custom-booking-service">
     <div class="nayar-booking-service__inner">
         <?php foreach ( $nayar_services as $nayar_service ) : ?>
             <?php
