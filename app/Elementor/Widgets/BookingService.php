@@ -119,63 +119,194 @@ class BookingService extends ServiceListWidget {
 	}
 
 	/**
-	 * Category Filter style controls for the Nayar isotope filter bar.
+	 * Add a control — patched for the inherited Radius Booking controls.
 	 *
-	 * The inherited Radius Booking "Category Filter" controls have no selectors —
-	 * their values are only handed to the plugin React app — so selectors are
-	 * attached here for the Nayar markup, plus typography, padding, border and
-	 * hover controls injected into the same section.
+	 * The Radius Booking style controls (Card, Image, Title, Description, Price,
+	 * Duration, Category Badge, Button, Category Filter) have no selectors: their
+	 * values only reach the plugin React app. Selectors for the Nayar markup are
+	 * merged in here, while the parent registers each control.
 	 *
-	 * @return void
+	 * This can't be done with update_control(): on the frontend Elementor's
+	 * optimized control loading files a control without selectors as a content
+	 * control, and an update that adds selectors leaves that stale copy in
+	 * place — so the CSS file is generated without them (editor only works).
+	 *
+	 * @param string $id      Control ID.
+	 * @param array  $args    Control arguments.
+	 * @param array  $options Control options.
+	 *
+	 * @return bool
 	 */
-	private function register_nayar_filter_style_controls() {
-		$bar    = '{{WRAPPER}} .nayar-booking-service__filter';
-		$btn    = '{{WRAPPER}} .nayar-booking-service__filter-btn';
-		$active = $btn . '.active';
-		// Inactive/hover rules skip the active button so they never override it.
-		$idle   = $btn . ':not(.active)';
+	public function add_control( $id, array $args, $options = [] ) {
+		$overrides = $this->get_parent_control_overrides();
 
-		$selectors = [
+		if ( isset( $overrides[ $id ] ) ) {
+			$override = $overrides[ $id ];
+
+			// Blank defaults: nothing overrides the Nayar theme design until a value is set.
+			if ( ! empty( $override['blank_default'] ) ) {
+				$args['default'] = isset( $args['type'] ) && Controls_Manager::SLIDER === $args['type'] ? [ 'unit' => 'px', 'size' => '' ] : '';
+			}
+
+			unset( $override['blank_default'] );
+			$args = array_merge( $args, $override );
+		}
+
+		return parent::add_control( $id, $args, $options );
+	}
+
+	/**
+	 * Overrides for the inherited Radius Booking controls, keyed by control ID.
+	 *
+	 * @return array
+	 */
+	private function get_parent_control_overrides() {
+		static $overrides = null;
+
+		if ( null !== $overrides ) {
+			return $overrides;
+		}
+
+		$w     = '{{WRAPPER}}';
+		$item  = $w . ' .booking-service-item';
+		$img   = $w . ' .booking-img';
+		$title = $w . ' .booking-title';
+		$desc  = $w . ' .booking-desc';
+		$price = $w . ' .booking-price';
+		$dur   = $w . ' .booking-duration';
+		$badge = $w . ' .booking-category';
+		$btn   = $w . ' .nayar-booking-service__btn';
+
+		$bar    = $w . ' .nayar-booking-service__filter';
+		$f_btn  = $w . ' .nayar-booking-service__filter-btn';
+		$active = $f_btn . '.active';
+		// Inactive/hover rules skip the active button so they never override it.
+		$idle   = $f_btn . ':not(.active)';
+
+		$card_selectors = [
+			// Card.
+			'primary_color'           => [ $w . ' .nayar-booking-service' => '--rt-primary-color: {{VALUE}};' ],
+			'card_bg_color'           => [ $item => 'background-color: {{VALUE}};' ],
+			'card_border_color'       => [ $item => 'border: 1px solid {{VALUE}};' ],
+			'card_border_radius'      => [ $item => 'border-radius: {{SIZE}}{{UNIT}}; overflow: hidden;' ],
+			'card_padding'            => [ $item => 'padding: {{SIZE}}{{UNIT}};' ],
+			'card_gap'                => [ $w . ' .nayar-booking-service__inner' => 'gap: {{SIZE}}{{UNIT}};' ],
+			// Image.
+			'image_height'            => [ $img => 'height: {{SIZE}}{{UNIT}}; width: 100%; object-fit: cover;' ],
+			'image_border_radius'     => [ $img . ', ' . $w . ' .booking-img-wrapper' => 'border-radius: {{SIZE}}{{UNIT}};' ],
+			// Title.
+			'title_color'             => [ $title => 'color: {{VALUE}};' ],
+			'title_font_size'         => [ $title => 'font-size: {{SIZE}}{{UNIT}};' ],
+			'title_font_weight'       => [ $title => 'font-weight: {{VALUE}};' ],
+			'title_margin_bottom'     => [ $title => 'margin-bottom: {{SIZE}}{{UNIT}};' ],
+			// Description.
+			'desc_color'              => [ $desc => 'color: {{VALUE}};' ],
+			'desc_font_size'          => [ $desc => 'font-size: {{SIZE}}{{UNIT}};' ],
+			'desc_line_height'        => [ $desc => 'line-height: {{SIZE}}{{UNIT}};' ],
+			// Price.
+			'price_color'             => [ $price => 'color: {{VALUE}};' ],
+			'price_font_size'         => [ $price => 'font-size: {{SIZE}}{{UNIT}};' ],
+			'price_font_weight'       => [ $price => 'font-weight: {{VALUE}};' ],
+			// Duration.
+			'duration_color'          => [ $dur => 'color: {{VALUE}};' ],
+			'duration_font_size'      => [ $dur => 'font-size: {{SIZE}}{{UNIT}};' ],
+			'duration_icon_size'      => [ $dur . ' svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};' ],
+			// Category Badge.
+			'badge_bg_color'          => [ $badge => 'background-color: {{VALUE}};' ],
+			'badge_text_color'        => [ $badge => 'color: {{VALUE}};' ],
+			'badge_font_size'         => [ $badge => 'font-size: {{SIZE}}{{UNIT}};' ],
+			'badge_border_radius'     => [ $badge => 'border-radius: {{SIZE}}{{UNIT}};' ],
+			// Book Now Button.
+			'button_bg_color'         => [ $btn => 'background-color: {{VALUE}}; border-color: {{VALUE}};' ],
+			'button_text_color'       => [ $btn => 'color: {{VALUE}};' ],
+			'button_hover_bg_color'   => [ $btn . ':hover' => 'background-color: {{VALUE}}; border-color: {{VALUE}};' ],
+			'button_hover_text_color' => [ $btn . ':hover' => 'color: {{VALUE}};' ],
+			'button_font_size'        => [ $btn => 'font-size: {{SIZE}}{{UNIT}};' ],
+			'button_border_radius'    => [ $btn => 'border-radius: {{SIZE}}{{UNIT}};' ],
+			'button_padding_x'        => [ $btn => 'padding-left: {{SIZE}}{{UNIT}}; padding-right: {{SIZE}}{{UNIT}};' ],
+			'button_padding_y'        => [ $btn => 'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}};' ],
+		];
+
+		$filter_selectors = [
 			'filter_active_bg'       => [ $active => 'background-color: {{VALUE}}; border-color: {{VALUE}};' ],
 			'filter_active_text'     => [ $active => 'color: {{VALUE}};' ],
 			'filter_inactive_bg'     => [ $idle => 'background-color: {{VALUE}};' ],
 			'filter_inactive_text'   => [ $idle => 'color: {{VALUE}};' ],
 			'filter_inactive_border' => [ $idle => 'border-color: {{VALUE}};' ],
-			'filter_font_size'       => [ $btn => 'font-size: {{SIZE}}{{UNIT}};' ],
-			'filter_border_radius'   => [ $btn => 'border-radius: {{SIZE}}{{UNIT}};' ],
+			'filter_font_size'       => [ $f_btn => 'font-size: {{SIZE}}{{UNIT}};' ],
+			'filter_border_radius'   => [ $f_btn => 'border-radius: {{SIZE}}{{UNIT}};' ],
 			'filter_gap'             => [ $bar => 'gap: {{SIZE}}{{UNIT}};' ],
 			'filter_margin_bottom'   => [ $bar => 'margin-bottom: {{SIZE}}{{UNIT}};' ],
 		];
 
-		foreach ( $selectors as $control_id => $control_selectors ) {
-			if ( $this->get_controls( $control_id ) ) {
-				$this->update_control( $control_id, [ 'selectors' => $control_selectors ] );
-			}
+		$overrides = [];
+
+		foreach ( $card_selectors as $control_id => $control_selectors ) {
+			$overrides[ $control_id ] = [
+				'selectors'     => $control_selectors,
+				'blank_default' => true,
+			];
 		}
 
-		// The original slider stops at 30px while defaulting to 9999px (pill).
-		if ( $this->get_controls( 'filter_border_radius' ) ) {
-			$this->update_control(
-				'filter_border_radius',
-				[
-					'size_units' => [ 'px', '%' ],
-					'range'      => [
-						'px' => [
-							'min' => 0,
-							'max' => 100,
-						],
-						'%'  => [
-							'min' => 0,
-							'max' => 50,
-						],
-					],
-					'default'    => [
-						'unit' => 'px',
-						'size' => 100,
-					],
-				]
-			);
+		foreach ( $filter_selectors as $control_id => $control_selectors ) {
+			$overrides[ $control_id ] = [ 'selectors' => $control_selectors ];
 		}
+
+		// Original radius sliders stop at 30px; 100px allows a pill shape.
+		foreach ( [ 'card_border_radius', 'image_border_radius', 'badge_border_radius', 'button_border_radius' ] as $control_id ) {
+			$overrides[ $control_id ]['range'] = [
+				'px' => [
+					'min' => 0,
+					'max' => 100,
+				],
+			];
+		}
+
+		// The original filter slider stops at 30px while defaulting to 9999px (pill).
+		$overrides['filter_border_radius'] += [
+			'size_units' => [ 'px', '%' ],
+			'range'      => [
+				'px' => [
+					'min' => 0,
+					'max' => 100,
+				],
+				'%'  => [
+					'min' => 0,
+					'max' => 50,
+				],
+			],
+			'default'    => [
+				'unit' => 'px',
+				'size' => 100,
+			],
+		];
+
+		// 0px would collapse the image; leave the field empty to keep the theme height.
+		$overrides['image_height']['range'] = [
+			'px' => [
+				'min' => 50,
+				'max' => 600,
+			],
+		];
+
+		// New card elements stay hidden until switched on, so existing designs don't change.
+		$overrides['show_duration'] = [ 'default' => '' ];
+		$overrides['show_category'] = [ 'default' => '' ];
+
+		return $overrides;
+	}
+
+	/**
+	 * Extra Category Filter style controls for the Nayar isotope filter bar:
+	 * typography, padding, border, alignment and hover, injected into the
+	 * inherited "Category Filter" section.
+	 *
+	 * @return void
+	 */
+	private function register_nayar_filter_style_controls() {
+		$bar  = '{{WRAPPER}} .nayar-booking-service__filter';
+		$btn  = '{{WRAPPER}} .nayar-booking-service__filter-btn';
+		$idle = $btn . ':not(.active)';
 
 		if ( ! $this->get_controls( 'filter_margin_bottom' ) ) {
 			return;
@@ -465,9 +596,33 @@ class BookingService extends ServiceListWidget {
 			[
 				'settings'       => $settings,
 				'booking_markup' => $booking_markup,
+				'category_names' => $this->get_category_names( $settings ),
 				'wrapper_class'  => $this->get_wrapper_classes( $settings ),
 			]
 		);
+	}
+
+	/**
+	 * Category names keyed by id, for the card Category Badge.
+	 *
+	 * @param array $settings Widget settings.
+	 *
+	 * @return array
+	 */
+	private function get_category_names( $settings ) {
+		$names = [];
+
+		if ( empty( $settings['show_category'] ) || 'yes' !== $settings['show_category'] || ! class_exists( '\RadiusTheme\RadiusBooking\Models\Category' ) ) {
+			return $names;
+		}
+
+		foreach ( \RadiusTheme\RadiusBooking\Models\Category::query()->get() as $category ) {
+			if ( ! empty( $category->id ) && ! empty( $category->name ) ) {
+				$names[ (int) $category->id ] = $category->name;
+			}
+		}
+
+		return $names;
 	}
 
 	/**

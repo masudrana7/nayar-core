@@ -16,6 +16,7 @@
  * @var array  $settings       Widget settings.
  * @var string $booking_markup Radius Booking service list mount markup.
  * @var string $wrapper_class  Nayar wrapper classes.
+ * @var array  $category_names Category names keyed by id (Category Badge).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,6 +26,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 $wrapper_class  = isset( $wrapper_class ) ? $wrapper_class : 'nayar-booking-service';
 $booking_markup = isset( $booking_markup ) ? $booking_markup : '';
 $settings       = isset( $settings ) && is_array( $settings ) ? $settings : [];
+$category_names = isset( $category_names ) && is_array( $category_names ) ? $category_names : [];
+
+/**
+ * Radius Booking "Display Options" switches.
+ */
+$nayar_show_image    = ! isset( $settings['show_image'] ) || 'yes' === $settings['show_image'];
+$nayar_show_price    = ! isset( $settings['show_price'] ) || 'yes' === $settings['show_price'];
+$nayar_show_desc     = ! isset( $settings['show_description'] ) || 'yes' === $settings['show_description'];
+$nayar_show_duration = ! empty( $settings['show_duration'] ) && 'yes' === $settings['show_duration'];
 
 $nayar_services  = [];
 $nayar_has_model = class_exists( '\RadiusTheme\RadiusBooking\Models\Service' );
@@ -101,6 +111,7 @@ if ( ! defined( 'NAYAR_BOOKING_SERVICE_ASSETS' ) ) {
         .nayar-booking-service__inner{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
         .nayar-booking-service__modal{display:none;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:20px}
         @keyframes rtrb-spin{to{transform:rotate(360deg)}}
+        .nayar-booking-service .booking-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:0 0 12px}.nayar-booking-service .booking-category{display:inline-block;padding:4px 12px;border-radius:100px;background-color:var(--rt-primary-color);color:#fff;font-size:12px;line-height:1.4}.nayar-booking-service .booking-duration{display:inline-flex;align-items:center;gap:6px;font-size:14px}.nayar-booking-service .booking-duration svg{width:14px;height:14px;flex-shrink:0}
     </style>
     <script>
         (function(){
@@ -158,10 +169,22 @@ if ( ! defined( 'NAYAR_BOOKING_SERVICE_ASSETS' ) ) {
             $nayar_id    = isset( $nayar_service->id ) ? (int) $nayar_service->id : 0;
             $nayar_cat   = isset( $nayar_service->category_id ) ? (int) $nayar_service->category_id : 0;
             $nayar_title = isset( $nayar_service->name ) ? $nayar_service->name : '';
-            $nayar_image = isset( $nayar_service->picture_full_path ) ? $nayar_service->picture_full_path : '';
+            $nayar_image = $nayar_show_image && isset( $nayar_service->picture_full_path ) ? $nayar_service->picture_full_path : '';
             $nayar_price = isset( $nayar_service->price ) ? (float) $nayar_service->price : 0;
-            $nayar_price = $nayar_currency . number_format_i18n( $nayar_price, 2 );
-            $nayar_desc  = isset( $nayar_service->description ) && $nayar_desc_limit ? wp_trim_words( wp_strip_all_tags( $nayar_service->description ), $nayar_desc_limit, '' ) : '';
+            $nayar_price = $nayar_show_price ? $nayar_currency . number_format_i18n( $nayar_price, 2 ) : '';
+            $nayar_cat_name = isset( $category_names[ $nayar_cat ] ) ? $category_names[ $nayar_cat ] : '';
+            $nayar_minutes  = $nayar_show_duration && isset( $nayar_service->duration ) ? (int) floor( absint( $nayar_service->duration ) / 60 ) : 0; // Stored in seconds.
+            $nayar_duration = '';
+
+            if ( $nayar_minutes ) {
+                $nayar_hours    = floor( $nayar_minutes / 60 );
+                $nayar_mins     = $nayar_minutes % 60;
+                /* translators: %d: hours */
+                $nayar_duration = $nayar_hours ? sprintf( esc_html__( '%d hr', 'nayar-core' ), $nayar_hours ) : '';
+                /* translators: %d: minutes */
+                $nayar_duration = trim( $nayar_duration . ( $nayar_mins ? ' ' . sprintf( esc_html__( '%d min', 'nayar-core' ), $nayar_mins ) : '' ) );
+            }
+            $nayar_desc  = $nayar_show_desc && isset( $nayar_service->description ) && $nayar_desc_limit ? wp_trim_words( wp_strip_all_tags( $nayar_service->description ), $nayar_desc_limit, '' ) : '';
             ?>
             <div class="booking-service-item" data-category="<?php echo esc_attr( 'cat-' . $nayar_cat ); ?>">
                 <?php if ( $nayar_image || $nayar_price ) : ?>
@@ -179,6 +202,16 @@ if ( ! defined( 'NAYAR_BOOKING_SERVICE_ASSETS' ) ) {
 
                 <?php if ( $nayar_title ) : ?>
                     <h3 class="booking-title"><?php echo esc_html( $nayar_title ); ?></h3>
+                <?php endif; ?>
+                <?php if ( $nayar_cat_name || $nayar_duration ) : ?>
+                    <div class="booking-meta">
+                        <?php if ( $nayar_cat_name ) : ?>
+                            <span class="booking-category"><?php echo esc_html( $nayar_cat_name ); ?></span>
+                        <?php endif; ?>
+                        <?php if ( $nayar_duration ) : ?>
+                            <span class="booking-duration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><?php echo esc_html( $nayar_duration ); ?></span>
+                        <?php endif; ?>
+                    </div>
                 <?php endif; ?>
                 <?php if ( $nayar_desc ) : ?>
                     <p class="booking-desc"><?php echo esc_html( $nayar_desc ); ?></p>
