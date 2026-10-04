@@ -5,7 +5,7 @@
  *
  * Override from the theme: nayar-core/elementor/booking-service/category-filter.php
  *
- * Shared by view-1, view-2 and view-3 when the "Category Isotope" switch is on.
+ * Shared by view-1, view-2 and view-3 when Display Options "Show Category Filter" is on.
  * Clicking a category hides/shows the matching `.booking-service-item` cards
  * (matched by their `data-category`) with an isotope like scale + fade
  * animation. Vanilla JS, no extra library needed.
@@ -22,7 +22,9 @@ $settings = isset( $settings ) && is_array( $settings ) ? $settings : [];
 $services = isset( $services ) && is_array( $services ) ? $services : [];
 
 // Off, or the widget is already limited to a single category.
-if ( empty( $settings['nayar_category_isotope'] ) || 'yes' !== $settings['nayar_category_isotope'] || ! empty( $settings['category'] ) || ! $services ) {
+$nayar_show_filter = ! isset( $settings['show_category_filter'] ) || 'yes' === $settings['show_category_filter'];
+
+if ( ! $nayar_show_filter || ! empty( $settings['category'] ) || ! $services ) {
     return;
 }
 

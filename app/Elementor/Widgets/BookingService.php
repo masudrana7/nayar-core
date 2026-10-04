@@ -114,8 +114,30 @@ class BookingService extends ServiceListWidget {
 	 */
 	protected function register_controls() {
 		parent::register_controls();
-		$this->register_nayar_controls();
-		$this->register_nayar_filter_style_controls();
+
+		/*
+		 * Drop the Radius Booking "Layout" section: its Layout/Columns controls are
+		 * replaced by the Nayar Layout/Columns controls, and Services Per Page +
+		 * Filter by Category move into "Nayar Settings" (same IDs, so saved values
+		 * keep working). They are plain content controls, so remove_control() is safe.
+		 */
+		$moved = [];
+
+		foreach ( [ 'per_page', 'category' ] as $control_id ) {
+			$control = $this->get_controls( $control_id );
+
+			if ( $control ) {
+				unset( $control['name'], $control['section'], $control['tab'] );
+				$moved[ $control_id ] = $control;
+			}
+		}
+
+		$this->remove_control( [ 'section_layout', 'layout', 'columns', 'per_page', 'category' ] );
+
+		// Display Options "Button Text": unused, the Nayar layouts have their own Button Text.
+		$this->remove_control( 'button_text' );
+
+		$this->register_nayar_controls( $moved );
 	}
 
 	/**
@@ -152,7 +174,16 @@ class BookingService extends ServiceListWidget {
 			$args = array_merge( $args, $override );
 		}
 
-		return parent::add_control( $id, $args, $options );
+		$added = parent::add_control( $id, $args, $options );
+
+		// Extra filter controls go right after the last original filter control,
+		// while its section is still open (start_injection() + the Typography
+		// popover triggers Elementor warnings on the frontend).
+		if ( $added && 'filter_margin_bottom' === $id ) {
+			$this->register_nayar_filter_style_controls();
+		}
+
+		return $added;
 	}
 
 	/**
@@ -289,6 +320,9 @@ class BookingService extends ServiceListWidget {
 			],
 		];
 
+		// Its "Layout = Grid" condition points at the removed Layout control.
+		$overrides['image_height']['condition'] = [];
+
 		// New card elements stay hidden until switched on, so existing designs don't change.
 		$overrides['show_duration'] = [ 'default' => '' ];
 		$overrides['show_category'] = [ 'default' => '' ];
@@ -298,8 +332,8 @@ class BookingService extends ServiceListWidget {
 
 	/**
 	 * Extra Category Filter style controls for the Nayar isotope filter bar:
-	 * typography, padding, border, alignment and hover, injected into the
-	 * inherited "Category Filter" section.
+	 * typography, padding, border, alignment and hover, added to the inherited
+	 * "Category Filter" section right after "Spacing Bottom".
 	 *
 	 * @return void
 	 */
@@ -307,12 +341,6 @@ class BookingService extends ServiceListWidget {
 		$bar  = '{{WRAPPER}} .nayar-booking-service__filter';
 		$btn  = '{{WRAPPER}} .nayar-booking-service__filter-btn';
 		$idle = $btn . ':not(.active)';
-
-		if ( ! $this->get_controls( 'filter_margin_bottom' ) ) {
-			return;
-		}
-
-		$this->start_injection( [ 'of' => 'filter_margin_bottom' ] );
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
@@ -418,8 +446,6 @@ class BookingService extends ServiceListWidget {
 				],
 			]
 		);
-
-		$this->end_injection();
 	}
 
 	/**
@@ -427,7 +453,7 @@ class BookingService extends ServiceListWidget {
 	 *
 	 * @return void
 	 */
-	private function register_nayar_controls() {
+	private function register_nayar_controls( $moved = [] ) {
 		$this->start_controls_section(
 			'nayar_booking_service_section',
 			[
@@ -448,6 +474,11 @@ class BookingService extends ServiceListWidget {
                 'default'     => 'layout-1',
             ]
         );
+
+		// Services Per Page + Filter by Category, moved from the Radius Booking "Layout" section.
+		foreach ( $moved as $control_id => $control ) {
+			$this->add_control( $control_id, $control );
+		}
 
 		$this->add_control(
 			'nayar_description_limit',
@@ -477,19 +508,6 @@ class BookingService extends ServiceListWidget {
         );
 
         $this->add_control(
-            'nayar_category_isotope',
-            [
-                'label'        => esc_html__( 'Category Isotope', 'nayar-core' ),
-                'type'         => Controls_Manager::SWITCHER,
-                'label_on'     => esc_html__( 'On', 'nayar-core' ),
-                'label_off'    => esc_html__( 'Off', 'nayar-core' ),
-                'return_value' => 'yes',
-                'default'      => '',
-                'description'  => esc_html__( 'Category filter tabs above the services. Works when "Filter by Category" is All Categories.', 'nayar-core' ),
-            ]
-        );
-
-        $this->add_control(
             'nayar_filter_show_all',
             [
                 'label'        => esc_html__( 'Show "All" Button', 'nayar-core' ),
@@ -500,7 +518,8 @@ class BookingService extends ServiceListWidget {
                 'default'      => 'yes',
                 'description'  => esc_html__( 'When hidden, the first category is selected on load.', 'nayar-core' ),
                 'condition'    => [
-                    'nayar_category_isotope' => 'yes',
+                    'show_category_filter' => 'yes',
+                    'category'             => '',
                 ],
             ]
         );
@@ -513,8 +532,9 @@ class BookingService extends ServiceListWidget {
                 'default'     => esc_html__( 'All', 'nayar-core' ),
                 'label_block' => true,
                 'condition'   => [
-                    'nayar_category_isotope' => 'yes',
-                    'nayar_filter_show_all'  => 'yes',
+                    'show_category_filter'  => 'yes',
+                    'category'              => '',
+                    'nayar_filter_show_all' => 'yes',
                 ],
             ]
         );
@@ -567,11 +587,9 @@ class BookingService extends ServiceListWidget {
 	 */
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-
 		ob_start();
 		parent::render();
 		$booking_markup = ob_get_clean();
-
 		switch ( ! empty( $settings['layout_style'] ) ? $settings['layout_style'] : 'layout-1' ) {
 			case 'layout-2':
 				$template = 'view-2';
@@ -644,7 +662,8 @@ class BookingService extends ServiceListWidget {
 			'nayar-booking-service--' . sanitize_html_class( $style ),
 		];
 
-		if ( ! empty( $settings['nayar_category_isotope'] ) && 'yes' === $settings['nayar_category_isotope'] ) {
+		// Display Options "Show Category Filter" drives the isotope filter bar.
+		if ( empty( $settings['category'] ) && ( ! isset( $settings['show_category_filter'] ) || 'yes' === $settings['show_category_filter'] ) ) {
 			$classes[] = 'nayar-booking-service--isotope';
 		}
 

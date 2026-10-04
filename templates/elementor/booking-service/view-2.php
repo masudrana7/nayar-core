@@ -109,7 +109,8 @@ if ( ! defined( 'NAYAR_BOOKING_SERVICE_ASSETS' ) ) {
     ?>
     <style>
         .nayar-booking-service__inner{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
-        .nayar-booking-service__modal{display:none;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:20px}
+        .nayar-booking-service__modal{display:none;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+        .nayar-booking-service__modal-inner{display:flex;justify-content:center;width:100%;margin:auto}
         @keyframes rtrb-spin{to{transform:rotate(360deg)}}
         .nayar-booking-service .booking-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:0 0 12px}.nayar-booking-service .booking-category{display:inline-block;padding:4px 12px;border-radius:100px;background-color:var(--rt-primary-color);color:#fff;font-size:12px;line-height:1.4}.nayar-booking-service .booking-duration{display:inline-flex;align-items:center;gap:6px;font-size:14px}.nayar-booking-service .booking-duration svg{width:14px;height:14px;flex-shrink:0}
     </style>
@@ -123,10 +124,18 @@ if ( ! defined( 'NAYAR_BOOKING_SERVICE_ASSETS' ) ) {
                 }
 
                 var wrapper = button.closest('.nayar-booking-service');
-                var modal   = wrapper && wrapper.querySelector('.nayar-booking-service__modal');
+                var modal   = wrapper && ( wrapper._nayarModal || wrapper.querySelector('.nayar-booking-service__modal') );
 
                 if ( ! modal ) {
                     return;
+                }
+
+                // Move the modal to <body>: inside ScrollSmoother's transformed #smooth-content
+                // position:fixed is relative to the page content, not the viewport.
+                wrapper._nayarModal = modal;
+
+                if ( modal.parentNode !== document.body ) {
+                    document.body.appendChild(modal);
                 }
 
                 var mount = modal.querySelector('.nayar-booking-service__modal-inner');

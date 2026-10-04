@@ -78,15 +78,14 @@ if ( !empty( $link['url'] ) ) {
         ?>
         </ul>
     </div>
-
-    <div class="rt-button-wraper">
-        <a class="rt-button rt-button-1" <?php echo wp_kses_post( $attr ); ?>>
-            <span class="rt-primary-btn button-1"> <?php echo esc_html( $btn_text );?></span>
-	       <?php if( $button_icon )  {  ?>
-                   <span class="icon-area">
-                       <?php Icons_Manager::render_icon( $button_icon ); ?>
-                   </span>
-           <?php } ?>
+    <div class="rt-button">
+        <a class="rt-primary-btn btn button-2" <?php echo wp_kses_post( $attr ); ?>>
+            <?php echo esc_html( $btn_text );?>
+            <?php if( $button_icon )  {  ?>
+               <span class="btn-icon">
+                   <?php Icons_Manager::render_icon( $button_icon ); ?>
+               </span>
+            <?php } ?>
         </a>
     </div>
 
