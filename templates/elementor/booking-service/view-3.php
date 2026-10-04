@@ -143,17 +143,27 @@ if ( ! defined( 'NAYAR_BOOKING_SERVICE_ASSETS' ) ) {
 }
 ?>
 <div class="<?php echo esc_attr( $wrapper_class ); ?> rt-custom-booking-service">
+    <?php
+    \RT\NayarCore\Helper\Fns::get_template(
+        'elementor/booking-service/category-filter',
+        [
+            'settings' => $settings,
+            'services' => $nayar_services,
+        ]
+    );
+    ?>
     <div class="nayar-booking-service__inner">
         <?php foreach ( $nayar_services as $nayar_service ) : ?>
             <?php
             $nayar_id    = isset( $nayar_service->id ) ? (int) $nayar_service->id : 0;
+            $nayar_cat   = isset( $nayar_service->category_id ) ? (int) $nayar_service->category_id : 0;
             $nayar_title = isset( $nayar_service->name ) ? $nayar_service->name : '';
             $nayar_image = isset( $nayar_service->picture_full_path ) ? $nayar_service->picture_full_path : '';
             $nayar_price = isset( $nayar_service->price ) ? (float) $nayar_service->price : 0;
             $nayar_price = $nayar_currency . number_format_i18n( $nayar_price, 2 );
             $nayar_desc  = isset( $nayar_service->description ) && $nayar_desc_limit ? wp_trim_words( wp_strip_all_tags( $nayar_service->description ), $nayar_desc_limit, '' ) : '';
             ?>
-            <div class="booking-service-item">
+            <div class="booking-service-item" data-category="<?php echo esc_attr( 'cat-' . $nayar_cat ); ?>">
                 <?php if ( $nayar_image || $nayar_price ) : ?>
                 <div class="booking-img-inner">
                         <div class="booking-img-wrapper">

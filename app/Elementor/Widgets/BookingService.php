@@ -18,6 +18,7 @@
 namespace RT\NayarCore\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
+use Elementor\Group_Control_Typography;
 use RT\NayarCore\Helper\Fns;
 use RadiusTheme\RadiusBooking\Elementor\Widgets\ServiceListWidget;
 
@@ -114,6 +115,180 @@ class BookingService extends ServiceListWidget {
 	protected function register_controls() {
 		parent::register_controls();
 		$this->register_nayar_controls();
+		$this->register_nayar_filter_style_controls();
+	}
+
+	/**
+	 * Category Filter style controls for the Nayar isotope filter bar.
+	 *
+	 * The inherited Radius Booking "Category Filter" controls have no selectors —
+	 * their values are only handed to the plugin React app — so selectors are
+	 * attached here for the Nayar markup, plus typography, padding, border and
+	 * hover controls injected into the same section.
+	 *
+	 * @return void
+	 */
+	private function register_nayar_filter_style_controls() {
+		$bar    = '{{WRAPPER}} .nayar-booking-service__filter';
+		$btn    = '{{WRAPPER}} .nayar-booking-service__filter-btn';
+		$active = $btn . '.active';
+		// Inactive/hover rules skip the active button so they never override it.
+		$idle   = $btn . ':not(.active)';
+
+		$selectors = [
+			'filter_active_bg'       => [ $active => 'background-color: {{VALUE}}; border-color: {{VALUE}};' ],
+			'filter_active_text'     => [ $active => 'color: {{VALUE}};' ],
+			'filter_inactive_bg'     => [ $idle => 'background-color: {{VALUE}};' ],
+			'filter_inactive_text'   => [ $idle => 'color: {{VALUE}};' ],
+			'filter_inactive_border' => [ $idle => 'border-color: {{VALUE}};' ],
+			'filter_font_size'       => [ $btn => 'font-size: {{SIZE}}{{UNIT}};' ],
+			'filter_border_radius'   => [ $btn => 'border-radius: {{SIZE}}{{UNIT}};' ],
+			'filter_gap'             => [ $bar => 'gap: {{SIZE}}{{UNIT}};' ],
+			'filter_margin_bottom'   => [ $bar => 'margin-bottom: {{SIZE}}{{UNIT}};' ],
+		];
+
+		foreach ( $selectors as $control_id => $control_selectors ) {
+			if ( $this->get_controls( $control_id ) ) {
+				$this->update_control( $control_id, [ 'selectors' => $control_selectors ] );
+			}
+		}
+
+		// The original slider stops at 30px while defaulting to 9999px (pill).
+		if ( $this->get_controls( 'filter_border_radius' ) ) {
+			$this->update_control(
+				'filter_border_radius',
+				[
+					'size_units' => [ 'px', '%' ],
+					'range'      => [
+						'px' => [
+							'min' => 0,
+							'max' => 100,
+						],
+						'%'  => [
+							'min' => 0,
+							'max' => 50,
+						],
+					],
+					'default'    => [
+						'unit' => 'px',
+						'size' => 100,
+					],
+				]
+			);
+		}
+
+		if ( ! $this->get_controls( 'filter_margin_bottom' ) ) {
+			return;
+		}
+
+		$this->start_injection( [ 'of' => 'filter_margin_bottom' ] );
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'nayar_filter_typography',
+				'selector' => $btn,
+			]
+		);
+
+		$this->add_responsive_control(
+			'nayar_filter_padding',
+			[
+				'label'      => esc_html__( 'Padding', 'nayar-core' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					$btn => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'nayar_filter_border_width',
+			[
+				'label'      => esc_html__( 'Border Width', 'nayar-core' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min' => 0,
+						'max' => 10,
+					],
+				],
+				'selectors'  => [
+					$btn => 'border-width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'nayar_filter_align',
+			[
+				'label'     => esc_html__( 'Alignment', 'nayar-core' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => [
+					'flex-start' => [
+						'title' => esc_html__( 'Left', 'nayar-core' ),
+						'icon'  => 'eicon-text-align-left',
+					],
+					'center'     => [
+						'title' => esc_html__( 'Center', 'nayar-core' ),
+						'icon'  => 'eicon-text-align-center',
+					],
+					'flex-end'   => [
+						'title' => esc_html__( 'Right', 'nayar-core' ),
+						'icon'  => 'eicon-text-align-right',
+					],
+				],
+				'selectors' => [
+					$bar => 'justify-content: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nayar_filter_heading_hover',
+			[
+				'label'     => esc_html__( 'Hover State', 'nayar-core' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'nayar_filter_hover_bg',
+			[
+				'label'     => esc_html__( 'Background', 'nayar-core' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					$idle . ':hover' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nayar_filter_hover_text',
+			[
+				'label'     => esc_html__( 'Text Color', 'nayar-core' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					$idle . ':hover' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'nayar_filter_hover_border',
+			[
+				'label'     => esc_html__( 'Border Color', 'nayar-core' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					$idle . ':hover' => 'border-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->end_injection();
 	}
 
 	/**
@@ -166,6 +341,49 @@ class BookingService extends ServiceListWidget {
                 'label_block' => true,
                 'condition'   => [
                     'layout_style' => [ 'layout-2', 'layout-3' ],
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'nayar_category_isotope',
+            [
+                'label'        => esc_html__( 'Category Isotope', 'nayar-core' ),
+                'type'         => Controls_Manager::SWITCHER,
+                'label_on'     => esc_html__( 'On', 'nayar-core' ),
+                'label_off'    => esc_html__( 'Off', 'nayar-core' ),
+                'return_value' => 'yes',
+                'default'      => '',
+                'description'  => esc_html__( 'Category filter tabs above the services. Works when "Filter by Category" is All Categories.', 'nayar-core' ),
+            ]
+        );
+
+        $this->add_control(
+            'nayar_filter_show_all',
+            [
+                'label'        => esc_html__( 'Show "All" Button', 'nayar-core' ),
+                'type'         => Controls_Manager::SWITCHER,
+                'label_on'     => esc_html__( 'Show', 'nayar-core' ),
+                'label_off'    => esc_html__( 'Hide', 'nayar-core' ),
+                'return_value' => 'yes',
+                'default'      => 'yes',
+                'description'  => esc_html__( 'When hidden, the first category is selected on load.', 'nayar-core' ),
+                'condition'    => [
+                    'nayar_category_isotope' => 'yes',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'nayar_filter_all_text',
+            [
+                'label'       => esc_html__( 'Isotope "All" Text', 'nayar-core' ),
+                'type'        => Controls_Manager::TEXT,
+                'default'     => esc_html__( 'All', 'nayar-core' ),
+                'label_block' => true,
+                'condition'   => [
+                    'nayar_category_isotope' => 'yes',
+                    'nayar_filter_show_all'  => 'yes',
                 ],
             ]
         );
@@ -270,6 +488,10 @@ class BookingService extends ServiceListWidget {
 			'nayar-booking-service--col-' . sanitize_html_class( $columns ),
 			'nayar-booking-service--' . sanitize_html_class( $style ),
 		];
+
+		if ( ! empty( $settings['nayar_category_isotope'] ) && 'yes' === $settings['nayar_category_isotope'] ) {
+			$classes[] = 'nayar-booking-service--isotope';
+		}
 
 		if ( ! empty( $settings['nayar_wrapper_class'] ) ) {
 			foreach ( explode( ' ', $settings['nayar_wrapper_class'] ) as $extra_class ) {
