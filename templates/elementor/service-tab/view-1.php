@@ -63,7 +63,7 @@ $st_description     = isset( $st_description ) ? $st_description : '';
                 <!--Top Sub Title-->
                 <?php if ( $st_top_sub_title ) : ?>
                     <div class="top-sub-title-wrap">
-					    <span class="top-sub-title <?php echo esc_attr( $st_sub_title_style ); ?>">
+					    <span class="top-sub-title <?php echo esc_attr( $st_sub_title_style ); ?> rt-bottom-top-animation">
 						<?php
                         $st_icon_type  = ! empty( $st_top_title_icon_type ) ? $st_top_title_icon_type : 'icon';
                         $st_image_html = '';
@@ -114,7 +114,7 @@ $st_description     = isset( $st_description ) ? $st_description : '';
 
                 <!--Main Title-->
                 <?php if ( $st_title ) : ?>
-                    <<?php echo esc_attr( $st_main_title_tag ); ?> class="main-title <?php echo esc_attr( $st_title_gradient_animation ); ?> <?php echo esc_attr( $st_title_gradient_change_display ); ?> <?php echo esc_attr( $st_title_image_aline ); ?>"><?php nayar_html( $st_title, 'allow_title' ); ?></<?php echo esc_attr( $st_main_title_tag ); ?>>
+                    <<?php echo esc_attr( $st_main_title_tag ); ?> class="rt-split-word main-title <?php echo esc_attr( $st_title_gradient_animation ); ?> <?php echo esc_attr( $st_title_gradient_change_display ); ?> <?php echo esc_attr( $st_title_image_aline ); ?>"><?php nayar_html( $st_title, 'allow_title' ); ?></<?php echo esc_attr( $st_main_title_tag ); ?>>
                 <?php endif; ?>
 
                 <!--Description-->
@@ -142,7 +142,7 @@ $st_description     = isset( $st_description ) ? $st_description : '';
                             echo wp_get_attachment_image( $item['icon_image']['id'], 'full' );
                         }
                         ?>
-                </span>
+                    </span>
                 <?php endif; ?>
             </li>
             <?php $i++; endforeach; ?>

@@ -53,7 +53,7 @@ $comments_text = sprintf(
                 <div class="rt-post-meta">
                     <ul class="entry-meta">
                         <?php if ( $date_visibility ) { ?>
-                            <li class="rt-date"><i class="icon-rt-calender-4"></i><?php echo wp_kses_post( nayar_posted_on() ); ?></li>
+                            <li class="date"><i class="icon-rt-calender-4"></i><?php echo wp_kses_post( nayar_posted_on() ); ?></li>
                         <?php } ?>
                         <?php if ( $cat_visibility ) { ?>
                             <li><?php echo wp_kses_post( nayar_posted_in() ); ?></li>
