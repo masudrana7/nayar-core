@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $title                          string
  * @var $animation_headline_display     string
  * @var $headline_title                 string
+ * @var $title_split_animation          string
+ * @var $sub_title_animation            string
  * @var $main_title_tag                 string
  * @var $description                    string
  * @var $feature_lists                  string
@@ -35,6 +37,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 use Elementor\Icons_Manager;
 
+$sub_title_animation   = ! empty( $sub_title_animation ) ? $sub_title_animation : '';
+$title_split_animation = ! empty( $title_split_animation ) ? $title_split_animation : '';
 $animation_headline = ( $animation_headline_display == 'yes' ) ? 'rt-animated-headline' : '';
 
 ?>
@@ -44,7 +48,7 @@ $animation_headline = ( $animation_headline_display == 'yes' ) ? 'rt-animated-he
 		<!--Top Sub Title-->
 		<?php if ( $top_sub_title ): ?>
 			<div class="top-sub-title-wrap <?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="200ms" data-wow-duration="1200ms">
-                <span class="top-sub-title rt-bottom-top-animation <?php echo esc_attr( $sub_title_style );?>">
+                <span class="top-sub-title <?php echo esc_attr( $sub_title_animation );?> <?php echo esc_attr( $sub_title_style );?>">
                     <?php
                     $sub_icon_type  = ! empty( $top_title_icon_type ) ? $top_title_icon_type : 'icon';
                     $sub_image_html = '';
@@ -96,7 +100,7 @@ $animation_headline = ( $animation_headline_display == 'yes' ) ? 'rt-animated-he
 		<!--Main Title-->
 		<?php if ( $title ): ?>
         <div class="<?php echo esc_attr( $animation );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="400ms" data-wow-duration="1200ms">
-            <<?php echo esc_attr( $main_title_tag ) ?> class="rt-split-word main-title <?php echo esc_attr( $title_gradient_animation );?> <?php if( $title_gradient_change_display ) { ?><?php echo esc_attr( $title_gradient_change_display );?><?php } ?> <?php if( $title_line_shape ) { ?><?php echo esc_attr( $title_line_shape );?><?php } ?> <?php echo esc_attr( $title_image_aline );?> <?php if( !empty($alignment) ) { ?><?php echo esc_attr( $alignment );?><?php } ?>"><?php nayar_html( $title, 'allow_title' );?>
+            <<?php echo esc_attr( $main_title_tag ) ?> class="<?php echo esc_attr( $title_split_animation );?> main-title <?php echo esc_attr( $title_gradient_animation );?> <?php if( $title_gradient_change_display ) { ?><?php echo esc_attr( $title_gradient_change_display );?><?php } ?> <?php if( $title_line_shape ) { ?><?php echo esc_attr( $title_line_shape );?><?php } ?> <?php echo esc_attr( $title_image_aline );?> <?php if( !empty($alignment) ) { ?><?php echo esc_attr( $alignment );?><?php } ?>"><?php nayar_html( $title, 'allow_title' );?>
                 <?php if( !empty( $animation_headline ) ) { ?>
                     <div class="ah-words-wrapper">
                         <?php nayar_html( $headline_title, 'allow_title' );?>

@@ -512,6 +512,18 @@ class Image extends ElementorBase {
 			]
 		);
 
+		$this->add_control(
+			'image_animation',
+			[
+				'label'        => __( 'Image Animation', 'nayar-core' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'On', 'nayar-core' ),
+				'label_off'    => __( 'Off', 'nayar-core' ),
+				'return_value' => 'rt-image-animation',
+				'default'      => '',
+			]
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(

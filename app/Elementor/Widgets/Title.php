@@ -83,7 +83,7 @@ class Title extends ElementorBase {
 			'shadow_title_display',
 			[
 				'label'        => __( 'Shadow Title Display', 'nayar-core' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'type'         => \Elementor\Controls_Manager::HIDDEN,
 				'label_on'     => __( 'On', 'nayar-core' ),
 				'label_off'    => __( 'Off', 'nayar-core' ),
 				'default'       => 'no',
@@ -111,7 +111,7 @@ class Title extends ElementorBase {
 			'animation_headline_display',
 			[
 				'label'        => __( 'Animation Headline Display', 'nayar-core' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'type'         => \Elementor\Controls_Manager::HIDDEN,
 				'label_on'     => __( 'On', 'nayar-core' ),
 				'label_off'    => __( 'Off', 'nayar-core' ),
 				'default'       => 'no',
@@ -137,9 +137,6 @@ class Title extends ElementorBase {
 				'label'   => esc_html__( 'Description', 'nayar-core' ),
 				'type'    => Controls_Manager::WYSIWYG,
 				'default'     => __('Manage and streamline operations across multiple locations, sales channels, and employees to improve efficiency and your bottom line.', 'nayar-core' ),
-				'condition'  => [
-					'title_layout' => 'layout-1',
-				],
 			]
 		);
 
@@ -418,6 +415,18 @@ class Title extends ElementorBase {
 					'span' => esc_html__( 'Span', 'nayar-core' ),
 					'div' => esc_html__( 'Div', 'nayar-core' ),
 				],
+			]
+		);
+
+		$this->add_control(
+			'title_split_animation',
+			[
+				'label'        => __( 'Title Animation', 'nayar-core' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'On', 'nayar-core' ),
+				'label_off'    => __( 'Off', 'nayar-core' ),
+				'return_value' => 'rt-split-word',
+				'default'      => '',
 			]
 		);
 
@@ -724,6 +733,19 @@ class Title extends ElementorBase {
 				'selectors'          => [
 					'{{WRAPPER}} .top-sub-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				],
+			]
+		);
+
+		$this->add_control(
+			'sub_title_animation',
+			[
+				'label'        => __( 'Sub Title Animation', 'nayar-core' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'On', 'nayar-core' ),
+				'label_off'    => __( 'Off', 'nayar-core' ),
+				'return_value' => 'rt-bottom-top-animation',
+				'default'      => '',
+				'separator'    => 'before',
 			]
 		);
 
@@ -1089,9 +1111,6 @@ class Title extends ElementorBase {
 			[
 				'label' => esc_html__( 'Description & List Settings', 'nayar-core' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-				'condition'  => [
-					'title_layout' => 'layout-1',
-				],
 			]
 		);
 

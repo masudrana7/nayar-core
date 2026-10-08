@@ -35,6 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $image_shape                string
  * @var $image_shape_style          string
  * @var $image_overlay_animation    string
+ * @var $image_animation            string
  *
  */
 
@@ -48,18 +49,27 @@ if ( !empty( $link['url'] ) ) {
 $range_one = ( $scroll_animation == 'yes' ) ? $range_one : '';
 $range_two = ( $scroll_animation == 'yes' ) ? $range_two : '';
 
+$image_animation   = ! empty( $image_animation ) ? $image_animation : '';
+
+// Reserve the image's real size before it lazy-loads: Elementor's mobile containers wrap, and a wrapping
+// flex container measures a not-yet-loaded image as 0px, so the section jumped when it loaded mid-scroll.
+$img_attr = [];
+$img_src  = ! empty( $main_image['id'] ) ? wp_get_attachment_image_src( $main_image['id'], 'full' ) : false;
+if ( $img_src && $img_src[1] > 1 && $img_src[2] > 1 ) {
+	$img_attr['style'] = 'contain:size;contain-intrinsic-size:' . (int) $img_src[1] . 'px ' . (int) $img_src[2] . 'px';
+}
 $overlay_animation = ( $image_overlay_animation == 'yes' ) ? 'has-animation' : '';
 ?>
 
 <div class="rt-image-layout rt-loop-animation-<?php echo esc_attr($loop_animation); ?> rt-image-<?php echo esc_attr( $layout ) ?> <?php if( !empty( $alignment ) ) { ?><?php echo esc_attr( $alignment ) ?><?php } ?>">
 
 	<?php if( $layout == 'layout-1' ) { ?>
-        <div class="rt-image rt-image-animation <?php echo esc_attr( $overlay_animation );?> <?php echo esc_attr( $animations );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $delay );?>ms" data-wow-duration="<?php echo esc_attr( $durations );?>ms">
+        <div class="rt-image <?php echo esc_attr( $image_animation );?> <?php echo esc_attr( $overlay_animation );?> <?php echo esc_attr( $animations );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $delay );?>ms" data-wow-duration="<?php echo esc_attr( $durations );?>ms">
             <div data-parallax='{"<?php echo esc_attr( $x_range );?>" : <?php echo esc_attr( $range_one );?>, "<?php echo esc_attr( $y_range );?>" : <?php echo esc_attr( $range_two );?>}'>
 	            <?php if( $attr ) : ?>
                 <a <?php echo esc_attr($attr) ?> aria-label="image">
 		            <?php endif ?>
-		            <?php echo wp_get_attachment_image( $main_image['id'], 'full' ); ?>
+		            <?php echo wp_get_attachment_image( $main_image['id'], 'full', false, $img_attr ); ?>
 		            <?php if( $attr ) : ?>
                 </a>
                 <?php endif ?>
@@ -71,12 +81,12 @@ $overlay_animation = ( $image_overlay_animation == 'yes' ) ? 'has-animation' : '
 
 
 	<?php if( $layout == 'layout-2' ) { ?>
-        <div class="rt-image <?php echo esc_attr( $overlay_animation );?> <?php echo esc_attr( $animations );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $delay );?>ms" data-wow-duration="<?php echo esc_attr( $durations );?>ms" style="position: <?php echo esc_attr( $position ); ?>; z-index: <?php echo esc_attr( $z_index ); ?>">
+        <div class="rt-image <?php echo esc_attr( $image_animation );?> <?php echo esc_attr( $overlay_animation );?> <?php echo esc_attr( $animations );?> <?php echo esc_attr( $animation_effect );?>" data-wow-delay="<?php echo esc_attr( $delay );?>ms" data-wow-duration="<?php echo esc_attr( $durations );?>ms" style="position: <?php echo esc_attr( $position ); ?>; z-index: <?php echo esc_attr( $z_index ); ?>">
             <span class="rt-img <?php echo esc_attr( $animation ); ?>" data-parallax='{"<?php echo esc_attr( $x_range );?>" : <?php echo esc_attr( $range_one );?>, "<?php echo esc_attr( $y_range );?>" : <?php echo esc_attr( $range_two );?>}' style="animation-duration: <?php echo esc_attr( $duration ); ?>s">
                 <?php if( $attr ) : ?>
                 <a <?php echo esc_attr($attr) ?> aria-label="image">
                     <?php endif ?>
-                    <?php echo wp_get_attachment_image( $main_image['id'], 'full' ); ?>
+                    <?php echo wp_get_attachment_image( $main_image['id'], 'full', false, $img_attr ); ?>
                     <?php if( $attr ) : ?>
                 </a>
                 <?php endif ?>

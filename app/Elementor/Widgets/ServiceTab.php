@@ -274,6 +274,21 @@ class ServiceTab extends ElementorBase {
 			]
 		);
 
+		$this->add_control(
+			'st_title_split_animation',
+			[
+				'label'        => esc_html__( 'Title Animation', 'nayar-core' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'On', 'nayar-core' ),
+				'label_off'    => esc_html__( 'Off', 'nayar-core' ),
+				'return_value' => 'rt-split-word',
+				'default'      => '',
+				'condition'    => [
+					'show_section_title' => 'yes',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 
 		// Section Title > Sub Title Settings
@@ -580,6 +595,22 @@ class ServiceTab extends ElementorBase {
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .section-title-wrapper .top-sub-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'st_sub_title_animation',
+			[
+				'label'        => esc_html__( 'Sub Title Animation', 'nayar-core' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'On', 'nayar-core' ),
+				'label_off'    => esc_html__( 'Off', 'nayar-core' ),
+				'return_value' => 'rt-bottom-top-animation',
+				'default'      => '',
+				'separator'    => 'before',
+				'condition'    => [
+					'show_section_title' => 'yes',
 				],
 			]
 		);

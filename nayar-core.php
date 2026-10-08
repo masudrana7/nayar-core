@@ -3,7 +3,7 @@
 Plugin Name: Nayar Core
 Plugin URI: https://www.radiustheme.com
 Description: Nayar Theme Core Plugin
-Version: 1.0.4
+Version: 1.0.0
 Author: RadiusTheme
 Author URI: https://www.radiustheme.com
 License: GPL-2.0-or-later
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'NAYAR_CORE' ) ) {
-	define( 'NAYAR_CORE', '1.0.4' );
+	define( 'NAYAR_CORE', '1.0.0' );
 	define( 'NAYAR_CORE_PREFIX', 'nayar-core' );
 	define( 'NAYAR_CORE_BASE_URL', plugin_dir_url( __FILE__ ) );
 	define( 'NAYAR_CORE_BASE_DIR', plugin_dir_path( __FILE__ ) );

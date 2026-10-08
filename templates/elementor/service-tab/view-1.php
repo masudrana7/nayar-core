@@ -24,6 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $st_description           string
  * @var $st_sub_title_style       string
  * @var $st_main_title_tag        string
+ * @var $st_title_split_animation string
+ * @var $st_sub_title_animation   string
  * @var $st_title_image_aline     string
  * @var $st_icon_position         string
  */
@@ -57,13 +59,15 @@ $st_description     = isset( $st_description ) ? $st_description : '';
         $st_title_gradient_animation      = isset( $st_title_gradient_animation ) ? $st_title_gradient_animation : '';
         $st_title_gradient_change_display = isset( $st_title_gradient_change_display ) ? $st_title_gradient_change_display : '';
         $st_icon_position                 = isset( $st_icon_position ) ? $st_icon_position : 'left';
+        $st_title_split_animation         = ! empty( $st_title_split_animation ) ? $st_title_split_animation : '';
+        $st_sub_title_animation           = ! empty( $st_sub_title_animation ) ? $st_sub_title_animation : '';
         ?>
         <div class="section-title-wrapper">
             <div class="title-inner-wrapper">
                 <!--Top Sub Title-->
                 <?php if ( $st_top_sub_title ) : ?>
                     <div class="top-sub-title-wrap">
-					    <span class="top-sub-title <?php echo esc_attr( $st_sub_title_style ); ?> rt-bottom-top-animation">
+					    <span class="top-sub-title <?php echo esc_attr( $st_sub_title_style ); ?> <?php echo esc_attr( $st_sub_title_animation ); ?>">
 						<?php
                         $st_icon_type  = ! empty( $st_top_title_icon_type ) ? $st_top_title_icon_type : 'icon';
                         $st_image_html = '';
@@ -114,7 +118,7 @@ $st_description     = isset( $st_description ) ? $st_description : '';
 
                 <!--Main Title-->
                 <?php if ( $st_title ) : ?>
-                    <<?php echo esc_attr( $st_main_title_tag ); ?> class="rt-split-word main-title <?php echo esc_attr( $st_title_gradient_animation ); ?> <?php echo esc_attr( $st_title_gradient_change_display ); ?> <?php echo esc_attr( $st_title_image_aline ); ?>"><?php nayar_html( $st_title, 'allow_title' ); ?></<?php echo esc_attr( $st_main_title_tag ); ?>>
+                    <<?php echo esc_attr( $st_main_title_tag ); ?> class="main-title <?php echo esc_attr( $st_title_split_animation ); ?> <?php echo esc_attr( $st_title_gradient_animation ); ?> <?php echo esc_attr( $st_title_gradient_change_display ); ?> <?php echo esc_attr( $st_title_image_aline ); ?>"><?php nayar_html( $st_title, 'allow_title' ); ?></<?php echo esc_attr( $st_main_title_tag ); ?>>
                 <?php endif; ?>
 
                 <!--Description-->

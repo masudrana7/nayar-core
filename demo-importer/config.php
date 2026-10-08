@@ -15,10 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 return [
 	// Basic theme information.
 	'blog_slug'           => 'blog',
-	'demo_url'            => 'https://www.radiustheme.com/demo/wordpress/themes/nayar/',
+	'demo_url'            => 'https://radiustheme.net/themes/nayar/',
 	'commenter_email'     => 'dev-email@wpengine.local',
 	'menus'               => [
-		'primary'  => 'Primary Menu',
+		'primary'  => 'Main Menu',
 	],
 
 	// File paths.
@@ -40,16 +40,6 @@ return [
 			'name'    => 'Home 3',
 			'preview' => 'screenshots/home-3.webp',
 			'url'     => 'home-3/',
-		],
-		'home-4' => [
-			'name'    => 'Home 4',
-			'preview' => 'screenshots/home-4.webp',
-			'url'     => 'home-4/',
-		],
-		'home-5' => [
-			'name'    => 'Home 5',
-			'preview' => 'screenshots/home-5.webp',
-			'url'     => 'home-5/',
 		],
 	],
 
